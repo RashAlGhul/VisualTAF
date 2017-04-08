@@ -37,7 +37,7 @@ namespace VisualTAF
 
         public void FindSubImage(string imagePath, string subImagePath)
         {
-            var diffImagePath = @"C:\Users\Yauheni_Dzima\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Win";
+            var diffImagePath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\FindResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); // Image B
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImagePath); // Image A
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -59,7 +59,37 @@ namespace VisualTAF
             FindSpecifiedColor(imageToShow.ToBitmap());
             using (MagickImage image1 = new MagickImage(imageToShow.Bitmap))
             {
-                image1.Write(diffImagePath+"2.png");
+                image1.Write(diffImagePath);
+            }
+
+        }
+
+        public void FindSubImageWithClickOnIt(string imagePath, string subImagePath)
+        {
+            var diffImagePath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\FindResultToClick.png";
+            Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); // Image B
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImagePath); // Image A
+            Image<Bgr, byte> imageToShow = source.Copy();
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+
+                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                if (maxValues[0] > 0.9)
+                {
+                    // This is a match. Do something with it, for example draw a rectangle around it.
+                    HelpMethods.Click(maxLocations[0].X, maxLocations[0].Y);
+                    Rectangle match = new Rectangle(maxLocations[0], template.Size);
+                    imageToShow.Draw(match, new Bgr(Color.Red), 3);
+                }
+            }
+            FindSpecifiedColor(imageToShow.ToBitmap());
+            using (MagickImage image1 = new MagickImage(imageToShow.Bitmap))
+            {
+                image1.Write(diffImagePath);
             }
 
         }
