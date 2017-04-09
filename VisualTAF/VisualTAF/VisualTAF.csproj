@@ -78,10 +78,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HelpMethods.cs" />
+    <Compile Include="MouseMethods.cs" />
     <Compile Include="ImageWorker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TryUseClick.cs" />
+    <Compile Include="ImageWorkerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="OpenTK.dll.config" />

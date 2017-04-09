@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace VisualTAF
 {
-    class HelpMethods
+    class MouseMethods
     {
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         private static extern void mouse_event(long dwFlags, long dx, long dy, long cButtons, long dwExtraInfo);
@@ -19,10 +19,28 @@ namespace VisualTAF
         private const int MOUSEEVENTF_RIGHTDOWN = 0x08;
         private const int MOUSEEVENTF_RIGHTUP = 0x10;
 
-        public static void Click(int X, int Y)//object sender, EventArgs e)
+        public static void LMBClick(int X, int Y)//object sender, EventArgs e)
         {
             Cursor.Position = new Point(X, Y);
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+        }
+
+        public static void LMBClick(Point clickPoint)//object sender, EventArgs e)
+        {
+            Cursor.Position = clickPoint;
+            mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+        }
+
+        public static void RMBClick(int X, int Y)//object sender, EventArgs e)
+        {
+            Cursor.Position = new Point(X, Y);
+            mouse_event(MOUSEEVENTF_RIGHTDOWN | MOUSEEVENTF_RIGHTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+        }
+
+        public static void RMBClick(Point clickPoint)//object sender, EventArgs e)
+        {
+            Cursor.Position = clickPoint;
+            mouse_event(MOUSEEVENTF_RIGHTDOWN | MOUSEEVENTF_RIGHTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
         }
 
         public static void ForDebug()
@@ -35,8 +53,8 @@ namespace VisualTAF
 
         public static void DoubleClick(int X, int Y)
         {
-            Click(X,Y);
-            Click(X, Y);
+            LMBClick(X,Y);
+            LMBClick(X, Y);
         }
     }
 }
