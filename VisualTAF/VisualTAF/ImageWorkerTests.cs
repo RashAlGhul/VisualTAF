@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace VisualTAF
 {
-    [TestFixture]
+    [TestFixture,Parallelizable]
     public class ImageWorkerTests
     {
         [Test]
@@ -16,10 +16,9 @@ namespace VisualTAF
         {
             string path1 = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Desktop.png";
             string path2 = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Win.png";
-            ImageWorker image = new ImageWorker();
-            image.TakeScreenshot(path1);
-            image.FindSubImage(path1,path2);//~650 milliseconds
-            MouseMethods.LMBClick(image.FindSubImageWithClickOnIt(path1,path2));
+            ImageWorker.TakeScreenshot(path1);
+            ImageWorker.FindSubImage(path1,path2, @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\FindResult.png");//~650 milliseconds
+            MouseMethods.LMBClick(ImageWorker.FindSubImageWithClickOnIt(path1,path2, @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\FindResultToClick.png"));
             MouseMethods.ForDebug();
         }
     }

@@ -14,9 +14,9 @@ using ImageMagick;
 
 namespace VisualTAF
 {
-    public class ImageWorker
+    public static class ImageWorker
     {
-        public double FindDifference(string path1, string path2)
+        public static double FindDifference(string path1, string path2)
         {
             using (MagickImage image = new MagickImage(path1))
             {
@@ -27,7 +27,7 @@ namespace VisualTAF
             }
         }
 
-        public void TakeScreenshot(string savePath)
+        public static void TakeScreenshot(string savePath)
         {
             using (MagickImage screen = new MagickImage("screenshot:"))
             {
@@ -35,9 +35,37 @@ namespace VisualTAF
             }
         }
 
-        public void FindSubImage(string imagePath, string subImagePath)
+        public static void FindSubImage(string imagePath, string subImagePath)
         {
             var diffImagePath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\FindResult.png";
+            Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); // Image B
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImagePath); // Image A
+            Image<Bgr, byte> imageToShow = source.Copy();
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+
+                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                if (maxValues[0] > 0.9)
+                {
+                    // This is a match. Do something with it, for example draw a rectangle around it.
+                    Rectangle match = new Rectangle(maxLocations[0], template.Size);
+                    imageToShow.Draw(match, new Bgr(Color.Red), 3);
+                }
+            }
+
+            using (MagickImage image1 = new MagickImage(imageToShow.Bitmap))
+            {
+                image1.Write(diffImagePath);
+            }
+        }
+
+        public static void FindSubImage(string imagePath, string subImagePath,string resultSavePath)
+        {
+            var diffImagePath = resultSavePath;
             Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); // Image B
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImagePath); // Image A
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -64,7 +92,7 @@ namespace VisualTAF
 
         }
 
-        public Point FindSubImageWithClickOnIt(string imagePath, string subImagePath)
+        public static Point FindSubImageWithClickOnIt(string imagePath, string subImagePath)
         {
             var diffImagePath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\FindResultToClick.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); // Image B
@@ -95,7 +123,38 @@ namespace VisualTAF
             return leftUpperAngle;
         }
 
-        public List<Point> FindSpecifiedColor(Bitmap image, Color specificColor)
+        public static Point FindSubImageWithClickOnIt(string imagePath, string subImagePath, string resultSavePath)
+        {
+            var diffImagePath = resultSavePath;
+            Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); // Image B
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImagePath); // Image A
+            Image<Bgr, byte> imageToShow = source.Copy();
+            Point leftUpperAngle = new Point();
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+
+                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                if (maxValues[0] > 0.9)
+                {
+                    // This is a match. Do something with it, for example draw a rectangle around it.
+                    leftUpperAngle = maxLocations[0];
+                    Rectangle match = new Rectangle(maxLocations[0], template.Size);
+                    imageToShow.Draw(match, new Bgr(Color.Red), 3);
+                }
+            }
+
+            using (MagickImage image1 = new MagickImage(imageToShow.Bitmap))
+            {
+                image1.Write(diffImagePath);
+            }
+            return leftUpperAngle;
+        }
+
+        public static List<Point> FindSpecifiedColor(Bitmap image, Color specificColor)
         {
             MagickColor color = new MagickColor(specificColor);
             List<Point> colorCoordinates = new List<Point>();
@@ -116,7 +175,7 @@ namespace VisualTAF
             return colorCoordinates;
         }
 
-        public void FindSamePartsInImages(string etalonImagePath, string newImagePath)
+        public static void FindSamePartsInImages(string etalonImagePath, string newImagePath)
         {
             var samePartImagePath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\SameParts.png";
             using (MagickImage etalon = new MagickImage(etalonImagePath))
@@ -125,10 +184,23 @@ namespace VisualTAF
 
             using (MagickImage diffImage = new MagickImage())
             {
-
                 etalon.Compare(newImage, ErrorMetric.Absolute, diffImage);
 
                 diffImage.Write(samePartImagePath);
+            }
+        }
+
+        public static void FindSamePartsInImages(string etalonImagePath, string newImagePath, string defferenceImageSavePath)
+        {
+            using (MagickImage etalon = new MagickImage(etalonImagePath))
+
+            using (MagickImage newImage = new MagickImage(newImagePath))
+
+            using (MagickImage diffImage = new MagickImage())
+            {
+                etalon.Compare(newImage, ErrorMetric.Absolute, diffImage);
+
+                diffImage.Write(defferenceImageSavePath);
             }
         }
     }

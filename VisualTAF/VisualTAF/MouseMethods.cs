@@ -43,18 +43,24 @@ namespace VisualTAF
             mouse_event(MOUSEEVENTF_RIGHTDOWN | MOUSEEVENTF_RIGHTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
         }
 
+        public static void DoubleClick(int X, int Y)
+        {
+            LMBClick(X, Y);
+            LMBClick(X, Y);
+        }
+
+        public static void DoubleClick(Point clickPoint)
+        {
+            LMBClick(clickPoint);
+            LMBClick(clickPoint);
+        }
+
         public static void ForDebug()
         {
             Cursor Cursor = new Cursor(Cursor.Current.Handle);
             int posX = Cursor.Position.X;
             int posY = Cursor.Position.Y;
             Console.WriteLine($"X:{posX},Y:{posY}");
-        }
-
-        public static void DoubleClick(int X, int Y)
-        {
-            LMBClick(X,Y);
-            LMBClick(X, Y);
         }
     }
 }
