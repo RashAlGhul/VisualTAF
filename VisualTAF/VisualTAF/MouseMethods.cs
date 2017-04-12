@@ -19,9 +19,9 @@ namespace VisualTAF
         private const int MOUSEEVENTF_RIGHTDOWN = 0x08;
         private const int MOUSEEVENTF_RIGHTUP = 0x10;
 
-        public static void LMBClick(int X, int Y)
+        public static void LMBClick(int x, int y)
         {
-            Cursor.Position = new Point(X, Y);
+            Cursor.Position = new Point(x, y);
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
         }
 
@@ -43,16 +43,26 @@ namespace VisualTAF
             mouse_event(MOUSEEVENTF_RIGHTDOWN | MOUSEEVENTF_RIGHTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
         }
 
-        public static void DoubleClick(int X, int Y)
+        public static void DoubleClick(int x, int Y)
         {
-            LMBClick(X, Y);
-            LMBClick(X, Y);
+            LMBClick(x, Y);
+            LMBClick(x, Y);
         }
 
         public static void DoubleClick(Point clickPoint)
         {
             LMBClick(clickPoint);
             LMBClick(clickPoint);
+        }
+
+        public static void MoveToElemment(int x, int y)
+        {
+            Cursor.Position = new Point(x,y);
+        }
+
+        public static void MoveToElemment(Point focusPoint)
+        {
+            Cursor.Position = new Point(focusPoint.X,focusPoint.Y);
         }
 
         public static void ForDebug()
