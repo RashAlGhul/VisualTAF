@@ -17,8 +17,8 @@ namespace VisualTAF
             string path1 = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Desktop.png";
             string path2 = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Win.png";
             ImageWorker.TakeScreenshot(path1);
-            ImageWorker.FindSubImage(path1,path2, @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\FindResult.png");//~650 milliseconds
-            MouseMethods.MoveToElemment(ImageWorker.FindSubImageWithClickOnIt(path1,path2));
+            ImageWorker.FindSubImage(path1,path2);//~650 milliseconds
+            MouseMethods.MoveToElemment(ImageWorker.FindSubImageCoordinate(path1,path2));
             MouseMethods.ForDebug();
         }
     }
