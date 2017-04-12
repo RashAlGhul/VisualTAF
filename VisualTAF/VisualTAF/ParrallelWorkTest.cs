@@ -18,6 +18,7 @@ namespace VisualTAF
             ImageWorker.FindSubImage(path1, path2, @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\FindResult2.png");//~650 milliseconds
             MouseMethods.MoveToElemment(ImageWorker.FindSubImageCoordinate(path1, path2));
             MouseMethods.ForDebug();
+            Assert.IsTrue(ImageWorker.IsSubImageExist(path1, path2));
         }
     }
 }

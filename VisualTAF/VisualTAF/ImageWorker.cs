@@ -16,13 +16,13 @@ namespace VisualTAF
 {
     public static class ImageWorker
     {
-        public static double FindDifference(string path1, string path2)
+        public static double FindDifference(string oldPicturePath, string newPicturePath)
         {
-            using (MagickImage image = new MagickImage(path1))
+            using (MagickImage oldImage = new MagickImage(oldPicturePath))
             {
-                using (MagickImage images = new MagickImage(path2))
+                using (MagickImage newImages = new MagickImage(newPicturePath))
                 {
-                    return image.Compare(images).NormalizedMeanError;
+                    return oldImage.Compare(newImages).NormalizedMeanError;
                 }
             }
         }
@@ -42,7 +42,7 @@ namespace VisualTAF
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImagePath); // Image A
             Image<Bgr, byte> imageToShow = source.Copy();
 
-            using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
             {
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
@@ -70,7 +70,7 @@ namespace VisualTAF
             Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap) subImage); // Image A
             Image<Bgr, byte> imageToShow = source.Copy();
 
-            using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
             {
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
@@ -98,7 +98,7 @@ namespace VisualTAF
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); // Image A
             Image<Bgr, byte> imageToShow = source.Copy();
 
-            using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
             {
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
@@ -126,7 +126,7 @@ namespace VisualTAF
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); // Image A
             Image<Bgr, byte> imageToShow = source.Copy();
 
-            using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
             {
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
@@ -154,7 +154,7 @@ namespace VisualTAF
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImagePath); // Image A
             Image<Bgr, byte> imageToShow = source.Copy();
 
-            using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
             {
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
@@ -183,7 +183,7 @@ namespace VisualTAF
             Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap)subImage); // Image A
             Image<Bgr, byte> imageToShow = source.Copy();
 
-            using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
             {
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
@@ -211,7 +211,7 @@ namespace VisualTAF
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); // Image A
             Image<Bgr, byte> imageToShow = source.Copy();
 
-            using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
             {
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
@@ -239,7 +239,7 @@ namespace VisualTAF
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); // Image A
             Image<Bgr, byte> imageToShow = source.Copy();
 
-            using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
             {
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
@@ -267,7 +267,7 @@ namespace VisualTAF
 
             Point leftUpperAngle = new Point();
 
-            using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
             {
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
@@ -276,7 +276,6 @@ namespace VisualTAF
                 // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
                 if (maxValues[0] > 0.9)
                 {
-                    // This is a match. Do something with it, for example draw a rectangle around it.
                     leftUpperAngle = maxLocations[0];
                 }
             }
@@ -290,7 +289,7 @@ namespace VisualTAF
 
             Point leftUpperAngle = new Point();
 
-            using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
             {
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
@@ -299,7 +298,6 @@ namespace VisualTAF
                 // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
                 if (maxValues[0] > 0.9)
                 {
-                    // This is a match. Do something with it, for example draw a rectangle around it.
                     leftUpperAngle = maxLocations[0];
                 }
             }
@@ -313,7 +311,7 @@ namespace VisualTAF
 
             Point leftUpperAngle = new Point();
 
-            using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
             {
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
@@ -322,7 +320,6 @@ namespace VisualTAF
                 // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
                 if (maxValues[0] > 0.9)
                 {
-                    // This is a match. Do something with it, for example draw a rectangle around it.
                     leftUpperAngle = maxLocations[0];
                 }
             }
@@ -336,7 +333,7 @@ namespace VisualTAF
 
             Point leftUpperAngle = new Point();
 
-            using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
             {
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
@@ -345,11 +342,90 @@ namespace VisualTAF
                 // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
                 if (maxValues[0] > 0.9)
                 {
-                    // This is a match. Do something with it, for example draw a rectangle around it.
                     leftUpperAngle = maxLocations[0];
                 }
             }
             return leftUpperAngle;
+        }
+
+        public static bool IsSubImageExist(string image, string subImage)
+        {
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image); // Image B
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); // Image A
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+
+                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                if (maxValues[0] > 0.9)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsSubImageExist(Image image, Image subImage)
+        {
+            Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap)image); // Image B
+            Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap)subImage); // Image A
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+
+                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                if (maxValues[0] > 0.9)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsSubImageExist(Bitmap image, Bitmap subImage)
+        {
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image); // Image B
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); // Image A
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+
+                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                if (maxValues[0] > 0.9)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsSubImageExist(MagickImage image, MagickImage subImage)
+        {
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); // Image B
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); // Image A
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+
+                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                if (maxValues[0] > 0.9)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public static List<Point> FindSpecifiedColor(Bitmap image, Color specificColor)
@@ -365,7 +441,7 @@ namespace VisualTAF
                         /* Exact match */
                         if (pixel.ToColor().Equals(color))
                         {
-                            colorCoordinates.Add(new Point(pixel.X,pixel.Y));
+                            colorCoordinates.Add(new Point(pixel.X, pixel.Y));
                         }
                     }
                 }
