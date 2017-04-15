@@ -46,35 +46,6 @@ namespace VisualTAF
             }
         }
 
-        public static void TypeText(MagickImage inputPlace, string text)
-        {
-            using (MagickImage screen = new MagickImage("screenshot:"))
-            {
-                using (inputPlace)
-                {
-                    try
-                    {
-                        if (ImageWorker.IsSubImageExist(screen, inputPlace))
-                        {
-                            MouseMethods.LMBClick(ImageWorker.FindSubImageCoordinate(screen, inputPlace));
-                            new InputSimulator().Keyboard.TextEntry(text);
-                        }
-                        
-                        else
-                        {
-                            throw new Exception("Such element not found");
-                        }
-                        
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        throw;
-                    }
-                }
-            }
-        }
-
         public static void TypeText(Image inputPlace, string text)
         {
             using (MagickImage screen = new MagickImage("screenshot:"))
@@ -115,6 +86,35 @@ namespace VisualTAF
                         if (ImageWorker.IsSubImageExist(screen, input))
                         {
                             MouseMethods.LMBClick(ImageWorker.FindSubImageCoordinate(screen, input));
+                            new InputSimulator().Keyboard.TextEntry(text);
+                        }
+
+                        else
+                        {
+                            throw new Exception("Such element not found");
+                        }
+
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        throw;
+                    }
+                }
+            }
+        }
+
+        public static void TypeText(MagickImage inputPlace, string text)
+        {
+            using (MagickImage screen = new MagickImage("screenshot:"))
+            {
+                using (inputPlace)
+                {
+                    try
+                    {
+                        if (ImageWorker.IsSubImageExist(screen, inputPlace))
+                        {
+                            MouseMethods.LMBClick(ImageWorker.FindSubImageCoordinate(screen, inputPlace));
                             new InputSimulator().Keyboard.TextEntry(text);
                         }
 

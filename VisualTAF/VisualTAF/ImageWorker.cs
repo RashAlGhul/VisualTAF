@@ -69,9 +69,17 @@ namespace VisualTAF
             }
         }
 
+        public static void TakeScreenshot()
+        {
+            using (MagickImage screen = new MagickImage("screenshot:"))
+            {
+                screen.Write($@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\Desctop.png");
+            }
+        }
+
         public static void FindSubImage(string imagePath, string subImagePath)
         {
-            var diffImagePath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\FindResult.png";
+            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); // Image B
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImagePath); // Image A
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -99,7 +107,7 @@ namespace VisualTAF
 
         public static void FindSubImage(Image image, Image subImage)
         {
-            var diffImagePath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\FindResult.png";
+            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap) image); // Image B
             Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap) subImage); // Image A
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -127,7 +135,7 @@ namespace VisualTAF
 
         public static void FindSubImage(Bitmap image, Bitmap subImage)
         {
-            var diffImagePath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\FindResult.png";
+            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(image); // Image B
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); // Image A
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -155,7 +163,7 @@ namespace VisualTAF
 
         public static void FindSubImage(MagickImage image, MagickImage subImage)
         {
-            var diffImagePath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\FindResult.png";
+            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); // Image B
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); // Image A
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -483,9 +491,10 @@ namespace VisualTAF
             return colorCoordinates;
         }
 
-        public static void FindSamePartsInImages(string etalonImagePath, string newImagePath)
+        public static void FindDifferenceBetweenImages(string etalonImagePath, string newImagePath)
         {
-            var samePartImagePath = @"{C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\SameParts.png";
+
+            var samePartImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SameParts.png";
 
             using (MagickImage etalon = new MagickImage(etalonImagePath))
 
@@ -499,7 +508,126 @@ namespace VisualTAF
             }
         }
 
-        public static void FindSamePartsInImages(string etalonImagePath, string newImagePath, string defferenceImageSavePath)
+        public static void FindDifferenceBetweenImages(Image etalonImage, Image newImage)
+        {
+
+            var samePartImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SameParts.png";
+
+            using (MagickImage etalon = new MagickImage((Bitmap)etalonImage))
+
+            using (MagickImage newI = new MagickImage((Bitmap)newImage))
+
+            using (MagickImage diffImage = new MagickImage())
+            {
+                etalon.Compare(newI, ErrorMetric.Absolute, diffImage);
+
+                diffImage.Write(samePartImagePath);
+            }
+        }
+
+        public static void FindDifferenceBetweenImages(Bitmap etalonImage, Bitmap newImage)
+        {
+
+            var samePartImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SameParts.png";
+
+            using (MagickImage etalon = new MagickImage(etalonImage))
+
+            using (MagickImage newI = new MagickImage(newImage))
+
+            using (MagickImage diffImage = new MagickImage())
+            {
+                etalon.Compare(newI, ErrorMetric.Absolute, diffImage);
+
+                diffImage.Write(samePartImagePath);
+            }
+        }
+
+        public static void FindDifferenceBetweenImages(MagickImage etalonImage, MagickImage newImage)
+        {
+
+            var samePartImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SameParts.png";
+
+            using (MagickImage etalon = etalonImage)
+
+            using (MagickImage newI = newImage)
+
+            using (MagickImage diffImage = new MagickImage())
+            {
+                etalon.Compare(newI, ErrorMetric.Absolute, diffImage);
+
+                diffImage.Write(samePartImagePath);
+            }
+        }
+
+        public static void FindDifferenceBetweenImages(string etalonImagePath, string newImagePath, ErrorMetric metric)
+        {
+
+            var samePartImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SameParts.png";
+
+            using (MagickImage etalon = new MagickImage(etalonImagePath))
+
+            using (MagickImage newImage = new MagickImage(newImagePath))
+
+            using (MagickImage diffImage = new MagickImage())
+            {
+                etalon.Compare(newImage, metric, diffImage);
+
+                diffImage.Write(samePartImagePath);
+            }
+        }
+
+        public static void FindDifferenceBetweenImages(Image etalonImage, Image newImage, ErrorMetric metric)
+        {
+
+            var samePartImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SameParts.png";
+
+            using (MagickImage etalon = new MagickImage((Bitmap)etalonImage))
+
+            using (MagickImage newI = new MagickImage((Bitmap)newImage))
+
+            using (MagickImage diffImage = new MagickImage())
+            {
+                etalon.Compare(newI, metric, diffImage);
+
+                diffImage.Write(samePartImagePath);
+            }
+        }
+
+        public static void FindDifferenceBetweenImages(Bitmap etalonImage, Bitmap newImage, ErrorMetric metric)
+        {
+
+            var samePartImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SameParts.png";
+
+            using (MagickImage etalon = new MagickImage(etalonImage))
+
+            using (MagickImage newI = new MagickImage(newImage))
+
+            using (MagickImage diffImage = new MagickImage())
+            {
+                etalon.Compare(newI, metric, diffImage);
+
+                diffImage.Write(samePartImagePath);
+            }
+        }
+
+        public static void FindDifferenceBetweenImages(MagickImage etalonImage, MagickImage newImage, ErrorMetric metric)
+        {
+
+            var samePartImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SameParts.png";
+
+            using (MagickImage etalon = etalonImage)
+
+            using (MagickImage newI = newImage)
+
+            using (MagickImage diffImage = new MagickImage())
+            {
+                etalon.Compare(newI, metric, diffImage);
+
+                diffImage.Write(samePartImagePath);
+            }
+        }
+
+        public static void FindDifferenceBetweenImages(string etalonImagePath, string newImagePath, string differenceImageSavePath)
         {
             using (MagickImage etalon = new MagickImage(etalonImagePath))
 
@@ -509,9 +637,107 @@ namespace VisualTAF
             {
                 etalon.Compare(newImage, ErrorMetric.Absolute, diffImage);
 
-                diffImage.Write(defferenceImageSavePath);
+                diffImage.Write(differenceImageSavePath);
             }
         }
 
+        public static void FindDifferenceBetweenImages(Image etalonImage, Image newImage, string differenceImageSavePath)
+        {
+
+            using (MagickImage etalon = new MagickImage((Bitmap)etalonImage))
+
+            using (MagickImage newI = new MagickImage((Bitmap)newImage))
+
+            using (MagickImage diffImage = new MagickImage())
+            {
+                etalon.Compare(newI, ErrorMetric.Absolute, diffImage);
+
+                diffImage.Write(differenceImageSavePath);
+            }
+        }
+
+        public static void FindDifferenceBetweenImages(Bitmap etalonImage, Bitmap newImage, string differenceImageSavePath)
+        {
+            using (MagickImage etalon = new MagickImage(etalonImage))
+
+            using (MagickImage newI = new MagickImage(newImage))
+
+            using (MagickImage diffImage = new MagickImage())
+            {
+                etalon.Compare(newI, ErrorMetric.Absolute, diffImage);
+
+                diffImage.Write(differenceImageSavePath);
+            }
+        }
+
+        public static void FindDifferenceBetweenImages(MagickImage etalonImage, MagickImage newImage, string differenceImageSavePath)
+        {
+            using (MagickImage etalon = etalonImage)
+
+            using (MagickImage newI = newImage)
+
+            using (MagickImage diffImage = new MagickImage())
+            {
+                etalon.Compare(newI, ErrorMetric.Absolute, diffImage);
+
+                diffImage.Write(differenceImageSavePath);
+            }
+        }
+
+        public static void FindDifferenceBetweenImages(string etalonImagePath, string newImagePath, ErrorMetric metric, string differenceImageSavePath)
+        {
+            using (MagickImage etalon = new MagickImage(etalonImagePath))
+
+            using (MagickImage newImage = new MagickImage(newImagePath))
+
+            using (MagickImage diffImage = new MagickImage())
+            {
+                etalon.Compare(newImage, metric, diffImage);
+
+                diffImage.Write(differenceImageSavePath);
+            }
+        }
+
+        public static void FindDifferenceBetweenImages(Image etalonImage, Image newImage, ErrorMetric metric, string differenceImageSavePath)
+        {
+            using (MagickImage etalon = new MagickImage((Bitmap)etalonImage))
+
+            using (MagickImage newI = new MagickImage((Bitmap)newImage))
+
+            using (MagickImage diffImage = new MagickImage())
+            {
+                etalon.Compare(newI, metric, diffImage);
+
+                diffImage.Write(differenceImageSavePath);
+            }
+        }
+
+        public static void FindDifferenceBetweenImages(Bitmap etalonImage, Bitmap newImage, ErrorMetric metric, string differenceImageSavePath)
+        {
+            using (MagickImage etalon = new MagickImage(etalonImage))
+
+            using (MagickImage newI = new MagickImage(newImage))
+
+            using (MagickImage diffImage = new MagickImage())
+            {
+                etalon.Compare(newI, metric, diffImage);
+
+                diffImage.Write(differenceImageSavePath);
+            }
+        }
+
+        public static void FindDifferenceBetweenImages(MagickImage etalonImage, MagickImage newImage, ErrorMetric metric, string differenceImageSavePath)
+        {
+            using (MagickImage etalon = etalonImage)
+
+            using (MagickImage newI = newImage)
+
+            using (MagickImage diffImage = new MagickImage())
+            {
+                etalon.Compare(newI, metric, diffImage);
+
+                diffImage.Write(differenceImageSavePath);
+            }
+        }
     }
 }
