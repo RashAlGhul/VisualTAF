@@ -485,7 +485,7 @@ namespace VisualTAF
 
         public static void FindSamePartsInImages(string etalonImagePath, string newImagePath)
         {
-            var samePartImagePath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\SameParts.png";
+            var samePartImagePath = @"{C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\SameParts.png";
 
             using (MagickImage etalon = new MagickImage(etalonImagePath))
 
@@ -512,5 +512,6 @@ namespace VisualTAF
                 diffImage.Write(defferenceImageSavePath);
             }
         }
+
     }
 }
