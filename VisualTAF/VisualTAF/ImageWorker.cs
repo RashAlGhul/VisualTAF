@@ -16,13 +16,47 @@ namespace VisualTAF
 {
     public static class ImageWorker
     {
+
         public static double FindDifference(string oldPicturePath, string newPicturePath)
         {
             using (MagickImage oldImage = new MagickImage(oldPicturePath))
             {
                 using (MagickImage newImages = new MagickImage(newPicturePath))
                 {
-                    return oldImage.Compare(newImages).NormalizedMeanError;
+                    return 1-oldImage.Compare(newImages).NormalizedMeanError;
+                }
+            }
+        }
+
+        public static double FindDifference(MagickImage oldPicture, MagickImage newPicture)
+        {
+            using (MagickImage oldImage = oldPicture)
+            {
+                using (MagickImage newImages = newPicture)
+                {
+                    return 1 - oldImage.Compare(newImages).NormalizedMeanError;
+                }
+            }
+        }
+
+        public static double FindDifference(Image oldPicture, Image newPicture)
+        {
+            using (MagickImage oldImage = new MagickImage((Bitmap)oldPicture))
+            {
+                using (MagickImage newImages = new MagickImage((Bitmap)newPicture))
+                {
+                    return 1 - oldImage.Compare(newImages).NormalizedMeanError;
+                }
+            }
+        }
+
+        public static double FindDifference(Bitmap oldPicture, Bitmap newPicture)
+        {
+            using (MagickImage oldImage = new MagickImage(oldPicture))
+            {
+                using (MagickImage newImages = new MagickImage(newPicture))
+                {
+                    return 1 - oldImage.Compare(newImages).NormalizedMeanError;
                 }
             }
         }
