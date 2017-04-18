@@ -12,6 +12,20 @@ namespace VisualTAF.Tests
         private readonly string _explorerPath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Explorer.png";
         private Point _clickPoint;
 
+        [OneTimeSetUp]
+        public void TestFixtureSetUp()
+        {
+            iPathReportFile = $@"{iFolderResultTest}\WinAPITestsReport.html";
+            GenerateReport(0, "0", true);
+        }
+
+        [OneTimeTearDown] //вызывается после завершения всех тестов
+        public void TestFixtureTearDown()
+        {
+            GenerateReport(9, "0", true); // генерируем конец отчёта
+            //Process.Start(iPathReportFile); // открыть отчёт в конце тестов, если надо
+        }
+
         [SetUp]
         public void SetUp()
         {
@@ -21,9 +35,9 @@ namespace VisualTAF.Tests
         }
 
         [Test]
-        public void MouseMethodsCheck()
+        public void MouseMethodsTest()
         {
-            iTestNumCurrent = "MouseMethodsCheck";
+            iTestNumCurrent = "MouseMethodsTest";
             try
             {
                 MouseMethods.MoveToElemment(_clickPoint);
@@ -42,9 +56,9 @@ namespace VisualTAF.Tests
         }
 
         [Test]
-        public void KeyboardMethodsCheck()
+        public void KeyboardMethodsTest()
         {
-            iTestNumCurrent = "KeyboardMethodsCheck";
+            iTestNumCurrent = "KeyboardMethodsTest";
             try
             {
                 MouseMethods.MoveToElemment(_clickPoint);

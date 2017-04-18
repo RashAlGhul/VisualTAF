@@ -1,17 +1,12 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ImageMagick;
+using NUnit.Framework.Internal;
 
 namespace VisualTAF.Tests
 {
-    [TestFixture]
     public class BaseTest
     {
         public static string iTestNumCurrent = ""; // текущий номер выполняемого теста (для самоформируемого отчёта)
@@ -19,22 +14,10 @@ namespace VisualTAF.Tests
         public static string iWorkDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location); // рабочий каталог, относительно исполняемого файла (относительно EXE или DLL, в зависимости от того в чём содержатся тесты
         public static string iFolderResultTest = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory); // каталог результатов выполнения тестов
         public static string iFolderScreen = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory); // каталог со скринами
-        public static string iPathReportFile = iFolderResultTest + @"\Report.html"; // путь к файлу отчёта о тестировании
+        public static string iPathReportFile = ""; // путь к файлу отчёта о тестировании
         public static int iTestCountGood; // количество успешно пройденных тестов (используем в GenerateReport)
         public static int iTestCountFail; // количество не пройденных тестов (используем в GenerateReport)
-
-        [OneTimeSetUp]
-        public void TestFixtureSetUp()
-        {
-            GenerateReport(0, "0", true);
-        }
-
-        [OneTimeTearDown] //вызывается после завершения всех тестов
-        public void TestFixtureTearDown()
-        {
-            GenerateReport(9, "0", true); // генерируем конец отчёта
-            Process.Start(iPathReportFile); // открыть отчёт в конце тестов, если надо
-        }
+        
 
         /// <summary>
         /// Метод генерации отчёта о тестировании.
@@ -78,7 +61,7 @@ namespace VisualTAF.Tests
             {
                 iTestCountGood = iTestCountGood + 1;
                 sw.WriteLine(@"<tr style='color: green;'>" + "\n" +
-                             @"<td><a target='_blank' href='http://jira.ru/browse/" + iTestNum + "'>" + iTestNum + @"</a></td>" + "\n" +
+                             @"<td>" + iTestNum + @"</td>" + "\n" +
                              @"<td>Succesed</td>" + "\n" +
                              @"<td>" + iTime + @"</td>" + "\n" +
                              @"<td>-</td>" + "\n" +
@@ -91,7 +74,7 @@ namespace VisualTAF.Tests
                 string iNameScreen = iTestNum + "_" + $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss}" + ".png"; // префикс имени файла
                 ImageWorker.TakeScreenshot($@"{iFolderScreen}\{iNameScreen}");
                 sw.WriteLine(@"<tr style='color: red;'>" + "\n" + // создать отчёт
-                             @"<td><a target='_blank' href='http://jira.ru/browse/" + iTestNum + "'>" + iTestNum + @"</a></td>" + "\n" +
+                             @"<td>" + iTestNum + @"</td>" + "\n" +
                              @"<td>Fail</td>" + "\n" +
                              @"<td>" + iTime + @"</td>" + "\n" +
                              @"<td><a target='_blank' href='screen/" + iNameScreen + "'>watch</a></td>" + "\n" +
