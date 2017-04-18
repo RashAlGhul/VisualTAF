@@ -82,12 +82,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tests\BaseTest.cs" />
     <Compile Include="WinAPI\KeyboardMethods.cs" />
     <Compile Include="WinAPI\MouseMethods.cs" />
     <Compile Include="ImageWorker.cs" />
-    <Compile Include="ParrallelWorkTest.cs" />
+    <Compile Include="Tests\WinAPITests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ImageWorkerTests.cs" />
+    <Compile Include="Tests\ImageWorkerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="OpenTK.dll.config" />

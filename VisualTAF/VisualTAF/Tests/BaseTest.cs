@@ -2,18 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing.Imaging;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NUnit.Framework.Internal;
+using ImageMagick;
 
-
-namespace VisualTAF
+namespace VisualTAF.Tests
 {
-    [TestFixture,Parallelizable]
-    public class ImageWorkerTests
+    [TestFixture]
+    public class BaseTest
     {
         public static string iTestNumCurrent = ""; // текущий номер выполняемого теста (для самоформируемого отчёта)
         public static bool iExecTestGood; // переменная для проверки успешности проходимого теста (в рамках самоформируемого отчёта)
@@ -28,36 +27,6 @@ namespace VisualTAF
         public void TestFixtureSetUp()
         {
             GenerateReport(0, "0", true);
-        }
-
-        [Test]
-        public void FindSubImageCheck()
-        {
-            GenerateReport(0, "0", true);
-            iTestNumCurrent = "WSP-1251";
-            try
-            {
-
-                string path1 = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Desktop.png";
-                string path2 = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Win.png";
-                string path3 = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Find.png";
-                ImageWorker.TakeScreenshot(path1);
-                ImageWorker.FindSubImage(path1, path2);//~650 milliseconds
-                MouseMethods.MoveToElemment(ImageWorker.FindSubImageCoordinate(path1, path2));
-                MouseMethods.LMBClick(ImageWorker.FindSubImageCoordinate(path1, path2));
-                MouseMethods.ForDebug();
-                //KeyboardMethods.TypeText(path3, "notepad");
-                Assert.IsTrue(ImageWorker.IsSubImageExist(path1, path2));
-
-                GenerateReport(1, iTestNumCurrent, true);
-                iExecTestGood = true;
-            }
-            catch (Exception ex)
-            {
-                GenerateReport(1, iTestNumCurrent, false, ex.ToString());
-                iExecTestGood = false;
-            }
-            Assert.True(iExecTestGood);
         }
 
         [OneTimeTearDown] //вызывается после завершения всех тестов
@@ -150,6 +119,26 @@ namespace VisualTAF
             }
             sw.Close();
             // iPathReportFile - указывается полный путь до файла отчёта включая имя самого файла
+        }
+
+        public void GetClickPointCoordinates(string imagePath, string subImagePath, out Point clickPoint)
+        {
+            clickPoint = ImageWorker.FindSubImageCoordinate(imagePath, subImagePath);
+        }
+
+        public void GetClickPointCoordinates(Image image, Image subImage, out Point clickPoint)
+        {
+            clickPoint = ImageWorker.FindSubImageCoordinate(image, subImage);
+        }
+
+        public void GetClickPointCoordinates(Bitmap image, Bitmap subImage, out Point clickPoint)
+        {
+            clickPoint = ImageWorker.FindSubImageCoordinate(image, subImage);
+        }
+
+        public void GetClickPointCoordinates(MagickImage image, MagickImage subImage, out Point clickPoint)
+        {
+            clickPoint = ImageWorker.FindSubImageCoordinate(image, subImage);
         }
     }
 }

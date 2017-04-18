@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using WindowsInput;
+using WindowsInput.Native;
 using ImageMagick;
 
-namespace VisualTAF
+namespace VisualTAF.WinAPI
 {
     class KeyboardMethods
     {
@@ -131,6 +127,11 @@ namespace VisualTAF
                     }
                 }
             }
+        }
+
+        public static void PressEnter()
+        {
+            new InputSimulator().Keyboard.KeyPress(VirtualKeyCode.RETURN);
         }
     }
 }

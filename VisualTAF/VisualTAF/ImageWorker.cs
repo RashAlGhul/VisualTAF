@@ -28,17 +28,6 @@ namespace VisualTAF
             }
         }
 
-        public static double FindDifference(MagickImage oldPicture, MagickImage newPicture)
-        {
-            using (MagickImage oldImage = oldPicture)
-            {
-                using (MagickImage newImages = newPicture)
-                {
-                    return 1 - oldImage.Compare(newImages).NormalizedMeanError;
-                }
-            }
-        }
-
         public static double FindDifference(Image oldPicture, Image newPicture)
         {
             using (MagickImage oldImage = new MagickImage((Bitmap)oldPicture))
@@ -55,6 +44,17 @@ namespace VisualTAF
             using (MagickImage oldImage = new MagickImage(oldPicture))
             {
                 using (MagickImage newImages = new MagickImage(newPicture))
+                {
+                    return 1 - oldImage.Compare(newImages).NormalizedMeanError;
+                }
+            }
+        }
+
+        public static double FindDifference(MagickImage oldPicture, MagickImage newPicture)
+        {
+            using (MagickImage oldImage = oldPicture)
+            {
+                using (MagickImage newImages = newPicture)
                 {
                     return 1 - oldImage.Compare(newImages).NormalizedMeanError;
                 }
