@@ -12,23 +12,10 @@ namespace VisualTAF.Tests
         private readonly string _explorerPath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Explorer.png";
         private Point _clickPoint;
 
-        [OneTimeSetUp]
-        public void TestFixtureSetUp()
-        {
-            iPathReportFile = $@"{iFolderResultTest}\WinAPITestsReport.html";
-            GenerateReport(0, "0", true);
-        }
-
-        [OneTimeTearDown] //вызывается после завершения всех тестов
-        public void TestFixtureTearDown()
-        {
-            GenerateReport(9, "0", true); // генерируем конец отчёта
-            //Process.Start(iPathReportFile); // открыть отчёт в конце тестов, если надо
-        }
-
         [SetUp]
         public void SetUp()
         {
+            iExecTestGood = true;
             ImageWorker.TakeScreenshot(_desktopPath);
             Assert.IsTrue(ImageWorker.IsSubImageExist(_desktopPath, _explorerPath));
             GetClickPointCoordinates(_desktopPath, _explorerPath, out _clickPoint);

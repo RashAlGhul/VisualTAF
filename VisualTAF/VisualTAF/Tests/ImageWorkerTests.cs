@@ -10,23 +10,10 @@ namespace VisualTAF.Tests
         private readonly string _desktopPath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Desktop.png";
         private readonly string _winPath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Win.png";
 
-        [OneTimeSetUp]
-        public void TestFixtureSetUp()
-        {
-            iPathReportFile = $@"{iFolderResultTest}\ImageWorkerTestsReport.html";
-            GenerateReport(0, "0", true);
-        }
-
-        [OneTimeTearDown] //вызывается после завершения всех тестов
-        public void TestFixtureTearDown()
-        {
-            GenerateReport(9, "0", true); // генерируем конец отчёта
-            //Process.Start(iPathReportFile); // открыть отчёт в конце тестов, если надо
-        }
-
         [SetUp]
         public void SetUp()
         {
+            iExecTestGood = true;
             ImageWorker.TakeScreenshot(_desktopPath);
         }
 
