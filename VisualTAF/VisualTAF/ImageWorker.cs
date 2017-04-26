@@ -74,8 +74,8 @@ namespace VisualTAF
         public static void FindSubImage(string imagePath, string subImagePath)
         {
             var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
-            Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); // Image B
-            Image<Bgr, byte> template = new Image<Bgr, byte>(subImagePath); // Image A
+            Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImagePath); 
             Image<Bgr, byte> imageToShow = source.Copy();
 
             using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
@@ -84,10 +84,9 @@ namespace VisualTAF
                 Point[] minLocations, maxLocations;
                 result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
 
-                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
                 if (maxValues[0] > 0.9)
                 {
-                    // This is a match. Do something with it, for example draw a rectangle around it.
+                    
                     Rectangle match = new Rectangle(maxLocations[0], template.Size);
                     imageToShow.Draw(match, new Bgr(Color.Red), 3);
                 }
@@ -102,8 +101,8 @@ namespace VisualTAF
         public static void FindSubImage(Image image, Image subImage)
         {
             var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
-            Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap) image); // Image B
-            Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap) subImage); // Image A
+            Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap) image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap) subImage); 
             Image<Bgr, byte> imageToShow = source.Copy();
 
             using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
@@ -111,11 +110,9 @@ namespace VisualTAF
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
                 result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
-
-                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                
                 if (maxValues[0] > 0.9)
                 {
-                    // This is a match. Do something with it, for example draw a rectangle around it.
                     Rectangle match = new Rectangle(maxLocations[0], template.Size);
                     imageToShow.Draw(match, new Bgr(Color.Red), 3);
                 }
@@ -130,8 +127,8 @@ namespace VisualTAF
         public static void FindSubImage(Bitmap image, Bitmap subImage)
         {
             var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
-            Image<Bgr, byte> source = new Image<Bgr, byte>(image); // Image B
-            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); // Image A
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); 
             Image<Bgr, byte> imageToShow = source.Copy();
 
             using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
@@ -139,11 +136,9 @@ namespace VisualTAF
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
                 result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
-
-                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                
                 if (maxValues[0] > 0.9)
                 {
-                    // This is a match. Do something with it, for example draw a rectangle around it.
                     Rectangle match = new Rectangle(maxLocations[0], template.Size);
                     imageToShow.Draw(match, new Bgr(Color.Red), 3);
                 }
@@ -158,8 +153,8 @@ namespace VisualTAF
         public static void FindSubImage(MagickImage image, MagickImage subImage)
         {
             var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
-            Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); // Image B
-            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); // Image A
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); 
             Image<Bgr, byte> imageToShow = source.Copy();
 
             using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
@@ -167,11 +162,113 @@ namespace VisualTAF
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
                 result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
-
-                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                
                 if (maxValues[0] > 0.9)
                 {
-                    // This is a match. Do something with it, for example draw a rectangle around it.
+                    Rectangle match = new Rectangle(maxLocations[0], template.Size);
+                    imageToShow.Draw(match, new Bgr(Color.Red), 3);
+                }
+            }
+
+            using (MagickImage image1 = new MagickImage(imageToShow.Bitmap))
+            {
+                image1.Write(diffImagePath);
+            }
+        }
+
+        public static void FindSubImage(string imagePath, string subImagePath, double threshold)
+        {
+            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
+            Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImagePath); 
+            Image<Bgr, byte> imageToShow = source.Copy();
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+                
+                if (maxValues[0] > threshold)
+                {
+                    Rectangle match = new Rectangle(maxLocations[0], template.Size);
+                    imageToShow.Draw(match, new Bgr(Color.Red), 3);
+                }
+            }
+
+            using (MagickImage image1 = new MagickImage(imageToShow.Bitmap))
+            {
+                image1.Write(diffImagePath);
+            }
+        }
+
+        public static void FindSubImage(Image image, Image subImage, double threshold)
+        {
+            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
+            Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap)image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap)subImage); 
+            Image<Bgr, byte> imageToShow = source.Copy();
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+                
+                if (maxValues[0] > threshold)
+                {
+                    Rectangle match = new Rectangle(maxLocations[0], template.Size);
+                    imageToShow.Draw(match, new Bgr(Color.Red), 3);
+                }
+            }
+
+            using (MagickImage image1 = new MagickImage(imageToShow.Bitmap))
+            {
+                image1.Write(diffImagePath);
+            }
+        }
+
+        public static void FindSubImage(Bitmap image, Bitmap subImage, double threshold)
+        {
+            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); 
+            Image<Bgr, byte> imageToShow = source.Copy();
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+                
+                if (maxValues[0] > threshold)
+                {
+                    Rectangle match = new Rectangle(maxLocations[0], template.Size);
+                    imageToShow.Draw(match, new Bgr(Color.Red), 3);
+                }
+            }
+
+            using (MagickImage image1 = new MagickImage(imageToShow.Bitmap))
+            {
+                image1.Write(diffImagePath);
+            }
+        }
+
+        public static void FindSubImage(MagickImage image, MagickImage subImage, double threshold)
+        {
+            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); 
+            Image<Bgr, byte> imageToShow = source.Copy();
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+                
+                if (maxValues[0] > threshold)
+                {
                     Rectangle match = new Rectangle(maxLocations[0], template.Size);
                     imageToShow.Draw(match, new Bgr(Color.Red), 3);
                 }
@@ -186,8 +283,8 @@ namespace VisualTAF
         public static void FindSubImage(string imagePath, string subImagePath, string resultSavePath)
         {
             var diffImagePath = resultSavePath;
-            Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); // Image B
-            Image<Bgr, byte> template = new Image<Bgr, byte>(subImagePath); // Image A
+            Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImagePath); 
             Image<Bgr, byte> imageToShow = source.Copy();
 
             using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
@@ -195,11 +292,9 @@ namespace VisualTAF
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
                 result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
-
-                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                
                 if (maxValues[0] > 0.9)
                 {
-                    // This is a match. Do something with it, for example draw a rectangle around it.
                     Rectangle match = new Rectangle(maxLocations[0], template.Size);
                     imageToShow.Draw(match, new Bgr(Color.Red), 3);
                 }
@@ -215,8 +310,8 @@ namespace VisualTAF
         public static void FindSubImage(Image image, Image subImage, string resultSavePath)
         {
             var diffImagePath = resultSavePath;
-            Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap)image); // Image B
-            Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap)subImage); // Image A
+            Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap)image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap)subImage); 
             Image<Bgr, byte> imageToShow = source.Copy();
 
             using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
@@ -224,11 +319,9 @@ namespace VisualTAF
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
                 result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
-
-                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                
                 if (maxValues[0] > 0.9)
                 {
-                    // This is a match. Do something with it, for example draw a rectangle around it.
                     Rectangle match = new Rectangle(maxLocations[0], template.Size);
                     imageToShow.Draw(match, new Bgr(Color.Red), 3);
                 }
@@ -243,8 +336,8 @@ namespace VisualTAF
         public static void FindSubImage(Bitmap image, Bitmap subImage, string resultSavePath)
         {
             var diffImagePath = resultSavePath;
-            Image<Bgr, byte> source = new Image<Bgr, byte>(image); // Image B
-            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); // Image A
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); 
             Image<Bgr, byte> imageToShow = source.Copy();
 
             using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
@@ -252,11 +345,9 @@ namespace VisualTAF
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
                 result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
-
-                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                
                 if (maxValues[0] > 0.9)
                 {
-                    // This is a match. Do something with it, for example draw a rectangle around it.
                     Rectangle match = new Rectangle(maxLocations[0], template.Size);
                     imageToShow.Draw(match, new Bgr(Color.Red), 3);
                 }
@@ -271,8 +362,87 @@ namespace VisualTAF
         public static void FindSubImage(MagickImage image, MagickImage subImage, string resultSavePath)
         {
             var diffImagePath = resultSavePath;
-            Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); // Image B
-            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); // Image A
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); 
+            Image<Bgr, byte> imageToShow = source.Copy();
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+                
+                if (maxValues[0] > 0.9)
+                {
+                    Rectangle match = new Rectangle(maxLocations[0], template.Size);
+                    imageToShow.Draw(match, new Bgr(Color.Red), 3);
+                }
+            }
+
+            using (MagickImage image1 = new MagickImage(imageToShow.Bitmap))
+            {
+                image1.Write(diffImagePath);
+            }
+        }
+
+        public static void FindSubImage(string imagePath, string subImagePath, string resultSavePath, double threshold)
+        {
+            var diffImagePath = resultSavePath;
+            Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImagePath); 
+            Image<Bgr, byte> imageToShow = source.Copy();
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+                
+                if (maxValues[0] > threshold)
+                {
+                    Rectangle match = new Rectangle(maxLocations[0], template.Size);
+                    imageToShow.Draw(match, new Bgr(Color.Red), 3);
+                }
+            }
+
+            using (MagickImage image1 = new MagickImage(imageToShow.Bitmap))
+            {
+                image1.Write(diffImagePath);
+            }
+
+        }
+
+        public static void FindSubImage(Image image, Image subImage, string resultSavePath, double threshold)
+        {
+            var diffImagePath = resultSavePath;
+            Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap)image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap)subImage); 
+            Image<Bgr, byte> imageToShow = source.Copy();
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+                
+                if (maxValues[0] > threshold)
+                {
+                    Rectangle match = new Rectangle(maxLocations[0], template.Size);
+                    imageToShow.Draw(match, new Bgr(Color.Red), 3);
+                }
+            }
+
+            using (MagickImage image1 = new MagickImage(imageToShow.Bitmap))
+            {
+                image1.Write(diffImagePath);
+            }
+        }
+
+        public static void FindSubImage(Bitmap image, Bitmap subImage, string resultSavePath, double threshold)
+        {
+            var diffImagePath = resultSavePath;
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); 
             Image<Bgr, byte> imageToShow = source.Copy();
 
             using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
@@ -281,10 +451,34 @@ namespace VisualTAF
                 Point[] minLocations, maxLocations;
                 result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
 
-                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
-                if (maxValues[0] > 0.9)
+                if (maxValues[0] > threshold)
                 {
-                    // This is a match. Do something with it, for example draw a rectangle around it.
+                    Rectangle match = new Rectangle(maxLocations[0], template.Size);
+                    imageToShow.Draw(match, new Bgr(Color.Red), 3);
+                }
+            }
+
+            using (MagickImage image1 = new MagickImage(imageToShow.Bitmap))
+            {
+                image1.Write(diffImagePath);
+            }
+        }
+
+        public static void FindSubImage(MagickImage image, MagickImage subImage, string resultSavePath, double threshold)
+        {
+            var diffImagePath = resultSavePath;
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); 
+            Image<Bgr, byte> imageToShow = source.Copy();
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+                
+                if (maxValues[0] > threshold)
+                {
                     Rectangle match = new Rectangle(maxLocations[0], template.Size);
                     imageToShow.Draw(match, new Bgr(Color.Red), 3);
                 }
@@ -298,8 +492,8 @@ namespace VisualTAF
 
         public static Point FindSubImageCoordinate(string image, string subImage)
         {
-            Image<Bgr, byte> source = new Image<Bgr, byte>(image); // Image B
-            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); // Image A
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); 
 
             Point leftUpperAngle = new Point();
 
@@ -308,8 +502,7 @@ namespace VisualTAF
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
                 result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
-
-                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                
                 if (maxValues[0] > 0.9)
                 {
                     leftUpperAngle = maxLocations[0];
@@ -320,8 +513,8 @@ namespace VisualTAF
 
         public static Point FindSubImageCoordinate(Image image, Image subImage)
         {
-            Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap) image); // Image B
-            Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap) subImage); // Image A
+            Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap) image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap) subImage); 
 
             Point leftUpperAngle = new Point();
 
@@ -330,8 +523,7 @@ namespace VisualTAF
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
                 result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
-
-                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                
                 if (maxValues[0] > 0.9)
                 {
                     leftUpperAngle = maxLocations[0];
@@ -342,8 +534,8 @@ namespace VisualTAF
 
         public static Point FindSubImageCoordinate(Bitmap image, Bitmap subImage)
         {
-            Image<Bgr, byte> source = new Image<Bgr, byte>(image); // Image B
-            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); // Image A
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); 
 
             Point leftUpperAngle = new Point();
 
@@ -352,8 +544,7 @@ namespace VisualTAF
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
                 result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
-
-                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                
                 if (maxValues[0] > 0.9)
                 {
                     leftUpperAngle = maxLocations[0];
@@ -364,8 +555,8 @@ namespace VisualTAF
 
         public static Point FindSubImageCoordinate(MagickImage image, MagickImage subImage)
         {
-            Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); // Image B
-            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); // Image A
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); 
 
             Point leftUpperAngle = new Point();
 
@@ -374,9 +565,92 @@ namespace VisualTAF
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
                 result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
-
-                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                
                 if (maxValues[0] > 0.9)
+                {
+                    leftUpperAngle = maxLocations[0];
+                }
+            }
+            return leftUpperAngle;
+        }
+
+        public static Point FindSubImageCoordinate(string image, string subImage, double threshold)
+        {
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); 
+
+            Point leftUpperAngle = new Point();
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+                
+                if (maxValues[0] > threshold)
+                {
+                    leftUpperAngle = maxLocations[0];
+                }
+            }
+            return leftUpperAngle;
+        }
+
+        public static Point FindSubImageCoordinate(Image image, Image subImage, double threshold)
+        {
+            Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap)image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap)subImage); 
+
+            Point leftUpperAngle = new Point();
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+                
+                if (maxValues[0] > threshold)
+                {
+                    leftUpperAngle = maxLocations[0];
+                }
+            }
+            return leftUpperAngle;
+        }
+
+        public static Point FindSubImageCoordinate(Bitmap image, Bitmap subImage, double threshold)
+        {
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); 
+
+            Point leftUpperAngle = new Point();
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+                
+                if (maxValues[0] > threshold)
+                {
+                    leftUpperAngle = maxLocations[0];
+                }
+            }
+            return leftUpperAngle;
+        }
+
+        public static Point FindSubImageCoordinate(MagickImage image, MagickImage subImage, double threshold)
+        {
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); 
+
+            Point leftUpperAngle = new Point();
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+                
+                if (maxValues[0] > threshold)
                 {
                     leftUpperAngle = maxLocations[0];
                 }
@@ -386,16 +660,15 @@ namespace VisualTAF
 
         public static bool IsSubImageExist(string image, string subImage)
         {
-            Image<Bgr, byte> source = new Image<Bgr, byte>(image); // Image B
-            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); // Image A
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); 
 
             using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
             {
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
                 result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
-
-                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                
                 if (maxValues[0] > 0.9)
                 {
                     return true;
@@ -406,8 +679,8 @@ namespace VisualTAF
 
         public static bool IsSubImageExist(Image image, Image subImage)
         {
-            Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap)image); // Image B
-            Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap)subImage); // Image A
+            Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap)image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap)subImage); 
 
             using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
             {
@@ -415,7 +688,6 @@ namespace VisualTAF
                 Point[] minLocations, maxLocations;
                 result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
 
-                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
                 if (maxValues[0] > 0.9)
                 {
                     return true;
@@ -426,16 +698,15 @@ namespace VisualTAF
 
         public static bool IsSubImageExist(Bitmap image, Bitmap subImage)
         {
-            Image<Bgr, byte> source = new Image<Bgr, byte>(image); // Image B
-            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); // Image A
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); 
 
             using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
             {
                 double[] minValues, maxValues;
                 Point[] minLocations, maxLocations;
                 result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
-
-                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                
                 if (maxValues[0] > 0.9)
                 {
                     return true;
@@ -446,8 +717,65 @@ namespace VisualTAF
 
         public static bool IsSubImageExist(MagickImage image, MagickImage subImage)
         {
-            Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); // Image B
-            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); // Image A
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); 
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+                
+                if (maxValues[0] > 0.9)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsSubImageExist(string image, string subImage, double threshold)
+        {
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); 
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+                
+                if (maxValues[0] > threshold)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsSubImageExist(Image image, Image subImage, double threshold)
+        {
+            Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap)image); 
+            Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap)subImage); 
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+                
+                if (maxValues[0] > threshold)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsSubImageExist(Bitmap image, Bitmap subImage, double threshold)
+        {
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image);
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage);
 
             using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
             {
@@ -455,8 +783,28 @@ namespace VisualTAF
                 Point[] minLocations, maxLocations;
                 result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
 
-                // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
-                if (maxValues[0] > 0.9)
+                
+                if (maxValues[0] > threshold)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsSubImageExist(MagickImage image, MagickImage subImage, double threshold)
+        {
+            Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap());
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap());
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+
+                
+                if (maxValues[0] > threshold)
                 {
                     return true;
                 }

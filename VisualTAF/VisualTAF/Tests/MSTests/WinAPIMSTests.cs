@@ -1,13 +1,11 @@
 ﻿using System.Drawing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NUnit.Framework;
 using VisualTAF.WinAPI;
-using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace VisualTAF.Tests.MSTests
 {
     [TestClass]
-    class WinAPIMSTests
+    public class WinAPIMSTests
     {
         private const string DesktopPath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Desktop.png";
         private const string ExplorerPath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Explorer.png";
