@@ -1,24 +1,22 @@
-﻿using System;
-using System.Drawing;
-using ImageMagick;
+﻿using System.Drawing;
 using NUnit.Framework;
 using VisualTAF.WinAPI;
 
-namespace VisualTAF.Tests
+namespace VisualTAF.Tests.NUnitTests
 {
     [TestFixture,Parallelizable]
-    public class WinAPITests
+    public class WinAPINUnitTests
     {
-        private readonly string _desktopPath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Desktop.png";
-        private readonly string _explorerPath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Explorer.png";
+        private const string DesktopPath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Desktop.png";
+        private const string ExplorerPath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Explorer.png";
         private Point _clickPoint;
 
         [SetUp]
         public void SetUp()
         {
-            ImageWorker.TakeScreenshot(_desktopPath);
-            Assert.IsTrue(ImageWorker.IsSubImageExist(_desktopPath, _explorerPath));
-            _clickPoint = ImageWorker.FindSubImageCoordinate(_desktopPath, _explorerPath);
+            ImageWorker.TakeScreenshot(DesktopPath);
+            Assert.IsTrue(ImageWorker.IsSubImageExist(DesktopPath, ExplorerPath));
+            _clickPoint = ImageWorker.FindSubImageCoordinate(DesktopPath, ExplorerPath);
         }
 
         [Test]
