@@ -4,8 +4,7 @@ using VisualTAF.WinAPI;
 
 namespace VisualTAF.Tests.MSTests
 {
-    [TestClass]
-    public class WinAPIMSTests
+    [TestClass]    public class WinAPIMSTests
     {
         private const string DesktopPath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Desktop.png";
         private const string ExplorerPath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Explorer.png";
@@ -15,26 +14,27 @@ namespace VisualTAF.Tests.MSTests
         public void SetUp()
         {
             ImageWorker.TakeScreenshot(DesktopPath);
-            Assert.IsTrue(ImageWorker.IsSubImageExist(DesktopPath, ExplorerPath));
-            _clickPoint = ImageWorker.FindSubImageCoordinate(DesktopPath, ExplorerPath);
         }
 
         [TestMethod]
         public void MouseMethodsTest()
         {
+            Assert.IsTrue(ImageWorker.IsSubImageExist(DesktopPath, ExplorerPath));
+            _clickPoint = ImageWorker.FindSubImageCoordinate(DesktopPath, ExplorerPath);
             MouseMethods.MoveToElemment(_clickPoint);
             MouseMethods.RMBClick(_clickPoint);
             MouseMethods.LMBClick(_clickPoint);
-            MouseMethods.CursorPosition();
+            MouseMethods.MoveToElemment(0, 0);
         }
 
         [TestMethod]
         public void KeyboardMethodsTest()
         {
-            MouseMethods.MoveToElemment(_clickPoint);
-            MouseMethods.RMBClick(_clickPoint);
+            Assert.IsTrue(ImageWorker.IsSubImageExist(DesktopPath, ExplorerPath));
+            _clickPoint = ImageWorker.FindSubImageCoordinate(DesktopPath, ExplorerPath);
             KeyboardMethods.TypeText("V");
             KeyboardMethods.PressEnter();
+            MouseMethods.MoveToElemment(0, 0);
         }
     }
 }

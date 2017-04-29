@@ -73,7 +73,7 @@ namespace VisualTAF
 
         public static void FindSubImage(string imagePath, string subImagePath)
         {
-            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
+            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); 
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImagePath); 
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -100,7 +100,7 @@ namespace VisualTAF
 
         public static void FindSubImage(Image image, Image subImage)
         {
-            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
+            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap) image); 
             Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap) subImage); 
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -126,7 +126,7 @@ namespace VisualTAF
 
         public static void FindSubImage(Bitmap image, Bitmap subImage)
         {
-            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
+            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); 
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -152,7 +152,7 @@ namespace VisualTAF
 
         public static void FindSubImage(MagickImage image, MagickImage subImage)
         {
-            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
+            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); 
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); 
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -178,7 +178,7 @@ namespace VisualTAF
 
         public static void FindSubImage(string imagePath, string subImagePath, double threshold)
         {
-            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
+            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); 
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImagePath); 
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -204,7 +204,7 @@ namespace VisualTAF
 
         public static void FindSubImage(Image image, Image subImage, double threshold)
         {
-            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
+            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap)image); 
             Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap)subImage); 
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -230,7 +230,7 @@ namespace VisualTAF
 
         public static void FindSubImage(Bitmap image, Bitmap subImage, double threshold)
         {
-            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
+            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); 
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -256,7 +256,7 @@ namespace VisualTAF
 
         public static void FindSubImage(MagickImage image, MagickImage subImage, double threshold)
         {
-            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\FindResult.png";
+            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); 
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); 
             Image<Bgr, byte> imageToShow = source.Copy();

@@ -15,26 +15,29 @@ namespace VisualTAF.Tests.NUnitTests
         public void SetUp()
         {
             ImageWorker.TakeScreenshot(DesktopPath);
-            Assert.IsTrue(ImageWorker.IsSubImageExist(DesktopPath, ExplorerPath));
-            _clickPoint = ImageWorker.FindSubImageCoordinate(DesktopPath, ExplorerPath);
         }
 
         [Test]
         public void MouseMethodsTest()
         {
+            Assert.True(ImageWorker.IsSubImageExist(DesktopPath, ExplorerPath));
+            _clickPoint = ImageWorker.FindSubImageCoordinate(DesktopPath, ExplorerPath);
             MouseMethods.MoveToElemment(_clickPoint);
             MouseMethods.RMBClick(_clickPoint);
             MouseMethods.LMBClick(_clickPoint);
-            MouseMethods.CursorPosition();
+            MouseMethods.MoveToElemment(0,0);
         }
 
         [Test]
         public void KeyboardMethodsTest()
         {
+            Assert.True(ImageWorker.IsSubImageExist(DesktopPath, ExplorerPath));
+            _clickPoint = ImageWorker.FindSubImageCoordinate(DesktopPath, ExplorerPath);
             MouseMethods.MoveToElemment(_clickPoint);
             MouseMethods.RMBClick(_clickPoint);
             KeyboardMethods.TypeText("V");
             KeyboardMethods.PressEnter();
-       }
+            MouseMethods.MoveToElemment(0, 0);
+        }
     }
 }
