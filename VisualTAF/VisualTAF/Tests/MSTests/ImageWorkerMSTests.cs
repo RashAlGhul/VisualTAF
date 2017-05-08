@@ -8,6 +8,7 @@ namespace VisualTAF.Tests.MSTests
     {
         private const string DesktopPath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Desktop.png";
         private const string WinPath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Win.png";
+        private const string DesktopDifferencePath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\DesktopDifference.png";
 
         [TestInitialize]
         public void SetUp()
@@ -32,6 +33,20 @@ namespace VisualTAF.Tests.MSTests
         {
             Point subImageCoordinate = ImageWorker.FindSubImageCoordinate(DesktopPath, WinPath);
             Assert.IsFalse(subImageCoordinate.IsEmpty);
+        }
+        
+        [TestMethod]
+        public void FindDifferenceBetweenImagesTest()
+        {
+            ImageWorker.TakeScreenshot(DesktopDifferencePath);
+            ImageWorker.FindDifferenceBetweenImages(DesktopPath,DesktopDifferencePath);
+        }
+        
+        [TestMethod]
+        public void FindDifferenceImagesTest()
+        {
+            ImageWorker.TakeScreenshot(DesktopDifferencePath);
+            Console.Write(ImageWorker.FindDifference(DesktopPath,DesktopDifferencePath));
         }
     }
 }
