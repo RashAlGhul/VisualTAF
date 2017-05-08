@@ -61,11 +61,11 @@ namespace VisualTAF.WinAPI
             Cursor.Position = new Point(focusPoint.X,focusPoint.Y);
         }
 
-        public static void CursorPosition()
+        public static string CursorPosition()
         {
             int posX = Cursor.Position.X;
             int posY = Cursor.Position.Y;
-            Console.WriteLine($"X:{posX},Y:{posY}");
+            return $"X:{posX},Y:{posY}";
         }
     }
 }
