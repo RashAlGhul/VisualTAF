@@ -46,7 +46,7 @@ namespace VisualTAF.Tests.NUnitTests
         public void FindDifferenceImagesTest()
         {
             ImageWorker.TakeScreenshot(DesktopDifferencePath);
-            Console.Write(ImageWorker.FindDifference(DesktopPath,DesktopDifferencePath));
+            System.Console.Write(ImageWorker.FindDifference(DesktopPath,DesktopDifferencePath));
         }
     }
 }
