@@ -31,7 +31,6 @@ namespace VisualTAF.Tests.NUnitTests
         [Test]
         public void KeyboardMethodsTest()
         {
-            Assert.True(ImageWorker.IsSubImageExist(DesktopPath, ExplorerPath));
             _clickPoint = ImageWorker.FindSubImageCoordinate(DesktopPath, ExplorerPath);
             MouseMethods.MoveToElemment(_clickPoint);
             MouseMethods.RMBClick(_clickPoint);

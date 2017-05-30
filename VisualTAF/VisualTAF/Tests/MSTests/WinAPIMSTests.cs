@@ -4,7 +4,8 @@ using VisualTAF.WinAPI;
 
 namespace VisualTAF.Tests.MSTests
 {
-    [TestClass]    public class WinAPIMSTests
+    [TestClass]
+    public class WinAPIMSTests
     {
         private const string DesktopPath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Desktop.png";
         private const string ExplorerPath = @"C:\Users\Devil\Source\Repos\VisualTAF\VisualTAF\VisualTAF\bin\Debug\Explorer.png";
@@ -30,7 +31,6 @@ namespace VisualTAF.Tests.MSTests
         [TestMethod]
         public void KeyboardMethodsTest()
         {
-            Assert.IsTrue(ImageWorker.IsSubImageExist(DesktopPath, ExplorerPath));
             _clickPoint = ImageWorker.FindSubImageCoordinate(DesktopPath, ExplorerPath);
             KeyboardMethods.TypeText("V");
             KeyboardMethods.PressEnter();
