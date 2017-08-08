@@ -67,5 +67,18 @@ namespace VisualTAF.WinAPI
             int posY = Cursor.Position.Y;
             return $"X:{posX},Y:{posY}";
         }
+
+        public static void DragAndDrop(int x, int y)
+        {
+            mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, x+100, y+100, 0, 0);
+        }
+
+        public static void DragAndDrop(Point clickPoint)
+        {
+            Cursor.Position = clickPoint;
+            mouse_event(MOUSEEVENTF_LEFTDOWN, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, Cursor.Position.X + 100, Cursor.Position.Y + 100, 0, 0);
+        }
     }
 }

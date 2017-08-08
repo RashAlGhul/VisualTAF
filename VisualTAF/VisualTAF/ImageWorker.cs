@@ -67,7 +67,7 @@ namespace VisualTAF
         {
             using (MagickImage screen = new MagickImage("screenshot:"))
             {
-                screen.Write($@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\Desctop.png");
+                screen.Write($@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\Desktop.png");
             }
         }
 

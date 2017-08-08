@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Tests\MSTests\ImageWorkerMSTests.cs" />
     <Compile Include="Tests\MSTests\WinAPIMSTests.cs" />
+    <Compile Include="Tests\NUnitTests\NewMouseEventCheck.cs" />
     <Compile Include="WinAPI\KeyboardMethods.cs" />
     <Compile Include="WinAPI\MouseMethods.cs" />
     <Compile Include="ImageWorker.cs" />
