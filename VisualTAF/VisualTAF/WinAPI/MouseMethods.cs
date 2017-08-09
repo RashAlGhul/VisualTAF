@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace VisualTAF.WinAPI
@@ -14,6 +15,7 @@ namespace VisualTAF.WinAPI
         private const int MOUSEEVENTF_LEFTUP = 0x04;
         private const int MOUSEEVENTF_RIGHTDOWN = 0x08;
         private const int MOUSEEVENTF_RIGHTUP = 0x10;
+        private static bool _dragging = false;
 
         public static void LMBClick(int x, int y)
         {
@@ -68,17 +70,30 @@ namespace VisualTAF.WinAPI
             return $"X:{posX},Y:{posY}";
         }
 
-        public static void DragAndDrop(int x, int y)
+        public static void Grab(int x, int y)
         {
-            mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, x+100, y+100, 0, 0);
+            _dragging = true;
+            Cursor.Position = new Point(x, y);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, (uint)x, (uint)y, 0, 0);
+        }
+        public static void Release(int x, int y)
+        {
+            _dragging = false;
+            Cursor.Position = new Point(x, y);
+            mouse_event(MOUSEEVENTF_LEFTUP, (uint)x, (uint)y, 0, 0);
         }
 
-        public static void DragAndDrop(Point clickPoint)
+        public static void Grab(Point grabPoint)
         {
-            Cursor.Position = clickPoint;
+            _dragging = true;
+            Cursor.Position = grabPoint;
             mouse_event(MOUSEEVENTF_LEFTDOWN, Cursor.Position.X, Cursor.Position.Y, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, Cursor.Position.X + 100, Cursor.Position.Y + 100, 0, 0);
+        }
+        public static void Release(Point releasePoint)
+        {
+            _dragging = false;
+            Cursor.Position = releasePoint;
+            mouse_event(MOUSEEVENTF_LEFTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
         }
     }
 }

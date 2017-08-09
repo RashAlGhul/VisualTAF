@@ -129,6 +129,98 @@ namespace VisualTAF.WinAPI
             }
         }
 
+        public static void TypeText(string screenPath, string inputPlaceImagePath, string text)
+        {
+            try
+            {
+                if (ImageWorker.IsSubImageExist(screenPath, inputPlaceImagePath))
+                {
+                    MouseMethods.LMBClick(ImageWorker.FindSubImageCoordinate(screenPath, inputPlaceImagePath));
+                    new InputSimulator().Keyboard.TextEntry(text);
+                }
+
+                else
+                {
+                    throw new Exception("Such element not found");
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public static void TypeText(Image screen, Image inputPlace, string text)
+        {
+            try
+            {
+                if (ImageWorker.IsSubImageExist(screen, inputPlace))
+                {
+                    MouseMethods.LMBClick(ImageWorker.FindSubImageCoordinate(screen, inputPlace));
+                    new InputSimulator().Keyboard.TextEntry(text);
+                }
+
+                else
+                {
+                    throw new Exception("Such element not found");
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public static void TypeText(Bitmap screen, Bitmap inputPlace, string text)
+        {
+            try
+            {
+                if (ImageWorker.IsSubImageExist(screen, inputPlace))
+                {
+                    MouseMethods.LMBClick(ImageWorker.FindSubImageCoordinate(screen, inputPlace));
+                    new InputSimulator().Keyboard.TextEntry(text);
+                }
+
+                else
+                {
+                    throw new Exception("Such element not found");
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public static void TypeText(MagickImage screen, MagickImage inputPlace, string text)
+        {
+            try
+            {
+                if (ImageWorker.IsSubImageExist(screen, inputPlace))
+                {
+                    MouseMethods.LMBClick(ImageWorker.FindSubImageCoordinate(screen, inputPlace));
+                    new InputSimulator().Keyboard.TextEntry(text);
+                }
+
+                else
+                {
+                    throw new Exception("Such element not found");
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
         public static void PressEnter()
         {
             new InputSimulator().Keyboard.KeyPress(VirtualKeyCode.RETURN);
