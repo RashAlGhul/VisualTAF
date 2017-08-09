@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using ImageMagick;
+using VisualTAF.Utils;
 
 namespace VisualTAF
 {
@@ -66,13 +66,13 @@ namespace VisualTAF
         {
             using (MagickImage screen = new MagickImage("screenshot:"))
             {
-                screen.Write($@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\Desktop.png");
+                screen.Write($@"{ProjectPathHelper.DesktopPath}\Desktop.png");
             }
         }
 
         public static void FindSubImageAndSaveResultIntoFile(string imagePath, string subImagePath)
         {
-            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
+            var diffImagePath = $@"{ProjectPathHelper.DesktopPath}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); 
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImagePath); 
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -99,7 +99,7 @@ namespace VisualTAF
 
         public static void FindSubImageAndSaveResultIntoFile(Image image, Image subImage)
         {
-            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
+            var diffImagePath = $@"{ProjectPathHelper.DesktopPath}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap) image); 
             Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap) subImage); 
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -125,7 +125,7 @@ namespace VisualTAF
 
         public static void FindSubImageAndSaveResultIntoFile(Bitmap image, Bitmap subImage)
         {
-            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
+            var diffImagePath = $@"{ProjectPathHelper.DesktopPath}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); 
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -151,7 +151,7 @@ namespace VisualTAF
 
         public static void FindSubImageAndSaveResultIntoFile(MagickImage image, MagickImage subImage)
         {
-            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
+            var diffImagePath = $@"{ProjectPathHelper.DesktopPath}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); 
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); 
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -177,7 +177,7 @@ namespace VisualTAF
 
         public static void FindSubImageAndSaveResultIntoFile(string imagePath, string subImagePath, double threshold)
         {
-            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
+            var diffImagePath = $@"{ProjectPathHelper.DesktopPath}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); 
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImagePath); 
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -203,7 +203,7 @@ namespace VisualTAF
 
         public static void FindSubImageAndSaveResultIntoFile(Image image, Image subImage, double threshold)
         {
-            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
+            var diffImagePath = $@"{ProjectPathHelper.DesktopPath}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap)image); 
             Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap)subImage); 
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -229,7 +229,7 @@ namespace VisualTAF
 
         public static void FindSubImageAndSaveResultIntoFile(Bitmap image, Bitmap subImage, double threshold)
         {
-            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
+            var diffImagePath = $@"{ProjectPathHelper.DesktopPath}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImage); 
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -255,7 +255,7 @@ namespace VisualTAF
 
         public static void FindSubImageAndSaveResultIntoFile(MagickImage image, MagickImage subImage, double threshold)
         {
-            var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
+            var diffImagePath = $@"{ProjectPathHelper.DesktopPath}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); 
             Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap()); 
             Image<Bgr, byte> imageToShow = source.Copy();
@@ -835,7 +835,7 @@ namespace VisualTAF
         public static void FindDifferenceBetweenImages(string etalonImagePath, string newImagePath)
         {
 
-            var samePartImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SameParts.png";
+            var samePartImagePath = $@"{ProjectPathHelper.DesktopPath}\SameParts.png";
 
             using (MagickImage etalon = new MagickImage(etalonImagePath))
 
@@ -852,7 +852,7 @@ namespace VisualTAF
         public static void FindDifferenceBetweenImages(Image etalonImage, Image newImage)
         {
 
-            var samePartImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SameParts.png";
+            var samePartImagePath = $@"{ProjectPathHelper.DesktopPath}\SameParts.png";
 
             using (MagickImage etalon = new MagickImage((Bitmap)etalonImage))
 
@@ -869,7 +869,7 @@ namespace VisualTAF
         public static void FindDifferenceBetweenImages(Bitmap etalonImage, Bitmap newImage)
         {
 
-            var samePartImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SameParts.png";
+            var samePartImagePath = $@"{ProjectPathHelper.DesktopPath}\SameParts.png";
 
             using (MagickImage etalon = new MagickImage(etalonImage))
 
@@ -886,7 +886,7 @@ namespace VisualTAF
         public static void FindDifferenceBetweenImages(MagickImage etalonImage, MagickImage newImage)
         {
 
-            var samePartImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SameParts.png";
+            var samePartImagePath = $@"{ProjectPathHelper.DesktopPath}\SameParts.png";
 
             using (MagickImage etalon = etalonImage)
 
@@ -903,7 +903,7 @@ namespace VisualTAF
         public static void FindDifferenceBetweenImages(string etalonImagePath, string newImagePath, ErrorMetric metric)
         {
 
-            var samePartImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SameParts.png";
+            var samePartImagePath = $@"{ProjectPathHelper.DesktopPath}\SameParts.png";
 
             using (MagickImage etalon = new MagickImage(etalonImagePath))
 
@@ -920,7 +920,7 @@ namespace VisualTAF
         public static void FindDifferenceBetweenImages(Image etalonImage, Image newImage, ErrorMetric metric)
         {
 
-            var samePartImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SameParts.png";
+            var samePartImagePath = $@"{ProjectPathHelper.DesktopPath}\SameParts.png";
 
             using (MagickImage etalon = new MagickImage((Bitmap)etalonImage))
 
@@ -937,7 +937,7 @@ namespace VisualTAF
         public static void FindDifferenceBetweenImages(Bitmap etalonImage, Bitmap newImage, ErrorMetric metric)
         {
 
-            var samePartImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SameParts.png";
+            var samePartImagePath = $@"{ProjectPathHelper.DesktopPath}\SameParts.png";
 
             using (MagickImage etalon = new MagickImage(etalonImage))
 
@@ -954,7 +954,7 @@ namespace VisualTAF
         public static void FindDifferenceBetweenImages(MagickImage etalonImage, MagickImage newImage, ErrorMetric metric)
         {
 
-            var samePartImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SameParts.png";
+            var samePartImagePath = $@"{ProjectPathHelper.DesktopPath}\SameParts.png";
 
             using (MagickImage etalon = etalonImage)
 
