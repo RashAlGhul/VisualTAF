@@ -19,7 +19,7 @@ namespace VisualTAF.Tests.MSTests
         [TestMethod]
         public void FindSubImageTest()
         {
-            ImageWorker.FindSubImage(DesktopPath, WinPath);
+            ImageWorker.FindSubImageAndSaveResultIntoFile(DesktopPath, WinPath);
         }
 
         [TestMethod]

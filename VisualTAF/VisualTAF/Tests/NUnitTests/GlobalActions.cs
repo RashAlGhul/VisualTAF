@@ -3,7 +3,7 @@ using VisualTAF.WinAPI;
 
 namespace VisualTAF.Tests.NUnitTests
 {
-    public class Steps
+    public class GlobalActions
     {
         private Point subImageCoordinate;
 

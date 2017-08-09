@@ -10,7 +10,6 @@ namespace VisualTAF
 {
     public static class ImageWorker
     {
-
         public static double FindDifference(string oldPicturePath, string newPicturePath)
         {
             using (MagickImage oldImage = new MagickImage(oldPicturePath))
@@ -71,7 +70,7 @@ namespace VisualTAF
             }
         }
 
-        public static void FindSubImage(string imagePath, string subImagePath)
+        public static void FindSubImageAndSaveResultIntoFile(string imagePath, string subImagePath)
         {
             var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); 
@@ -98,7 +97,7 @@ namespace VisualTAF
             }
         }
 
-        public static void FindSubImage(Image image, Image subImage)
+        public static void FindSubImageAndSaveResultIntoFile(Image image, Image subImage)
         {
             var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap) image); 
@@ -124,7 +123,7 @@ namespace VisualTAF
             }
         }
 
-        public static void FindSubImage(Bitmap image, Bitmap subImage)
+        public static void FindSubImageAndSaveResultIntoFile(Bitmap image, Bitmap subImage)
         {
             var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
@@ -150,7 +149,7 @@ namespace VisualTAF
             }
         }
 
-        public static void FindSubImage(MagickImage image, MagickImage subImage)
+        public static void FindSubImageAndSaveResultIntoFile(MagickImage image, MagickImage subImage)
         {
             var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); 
@@ -176,7 +175,7 @@ namespace VisualTAF
             }
         }
 
-        public static void FindSubImage(string imagePath, string subImagePath, double threshold)
+        public static void FindSubImageAndSaveResultIntoFile(string imagePath, string subImagePath, double threshold)
         {
             var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); 
@@ -202,7 +201,7 @@ namespace VisualTAF
             }
         }
 
-        public static void FindSubImage(Image image, Image subImage, double threshold)
+        public static void FindSubImageAndSaveResultIntoFile(Image image, Image subImage, double threshold)
         {
             var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap)image); 
@@ -228,7 +227,7 @@ namespace VisualTAF
             }
         }
 
-        public static void FindSubImage(Bitmap image, Bitmap subImage, double threshold)
+        public static void FindSubImageAndSaveResultIntoFile(Bitmap image, Bitmap subImage, double threshold)
         {
             var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
@@ -254,7 +253,7 @@ namespace VisualTAF
             }
         }
 
-        public static void FindSubImage(MagickImage image, MagickImage subImage, double threshold)
+        public static void FindSubImageAndSaveResultIntoFile(MagickImage image, MagickImage subImage, double threshold)
         {
             var diffImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\SearchResult.png";
             Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); 
@@ -280,7 +279,7 @@ namespace VisualTAF
             }
         }
 
-        public static void FindSubImage(string imagePath, string subImagePath, string resultSavePath)
+        public static void FindSubImageAndSaveResultIntoFile(string imagePath, string subImagePath, string resultSavePath)
         {
             var diffImagePath = resultSavePath;
             Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); 
@@ -307,7 +306,7 @@ namespace VisualTAF
 
         }
 
-        public static void FindSubImage(Image image, Image subImage, string resultSavePath)
+        public static void FindSubImageAndSaveResultIntoFile(Image image, Image subImage, string resultSavePath)
         {
             var diffImagePath = resultSavePath;
             Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap)image); 
@@ -333,7 +332,7 @@ namespace VisualTAF
             }
         }
 
-        public static void FindSubImage(Bitmap image, Bitmap subImage, string resultSavePath)
+        public static void FindSubImageAndSaveResultIntoFile(Bitmap image, Bitmap subImage, string resultSavePath)
         {
             var diffImagePath = resultSavePath;
             Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
@@ -359,7 +358,7 @@ namespace VisualTAF
             }
         }
 
-        public static void FindSubImage(MagickImage image, MagickImage subImage, string resultSavePath)
+        public static void FindSubImageAndSaveResultIntoFile(MagickImage image, MagickImage subImage, string resultSavePath)
         {
             var diffImagePath = resultSavePath;
             Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); 
@@ -385,7 +384,7 @@ namespace VisualTAF
             }
         }
 
-        public static void FindSubImage(string imagePath, string subImagePath, string resultSavePath, double threshold)
+        public static void FindSubImageAndSaveResultIntoFile(string imagePath, string subImagePath, string resultSavePath, double threshold)
         {
             var diffImagePath = resultSavePath;
             Image<Bgr, byte> source = new Image<Bgr, byte>(imagePath); 
@@ -412,7 +411,7 @@ namespace VisualTAF
 
         }
 
-        public static void FindSubImage(Image image, Image subImage, string resultSavePath, double threshold)
+        public static void FindSubImageAndSaveResultIntoFile(Image image, Image subImage, string resultSavePath, double threshold)
         {
             var diffImagePath = resultSavePath;
             Image<Bgr, byte> source = new Image<Bgr, byte>((Bitmap)image); 
@@ -438,7 +437,7 @@ namespace VisualTAF
             }
         }
 
-        public static void FindSubImage(Bitmap image, Bitmap subImage, string resultSavePath, double threshold)
+        public static void FindSubImageAndSaveResultIntoFile(Bitmap image, Bitmap subImage, string resultSavePath, double threshold)
         {
             var diffImagePath = resultSavePath;
             Image<Bgr, byte> source = new Image<Bgr, byte>(image); 
@@ -464,7 +463,7 @@ namespace VisualTAF
             }
         }
 
-        public static void FindSubImage(MagickImage image, MagickImage subImage, string resultSavePath, double threshold)
+        public static void FindSubImageAndSaveResultIntoFile(MagickImage image, MagickImage subImage, string resultSavePath, double threshold)
         {
             var diffImagePath = resultSavePath;
             Image<Bgr, byte> source = new Image<Bgr, byte>(image.ToBitmap()); 

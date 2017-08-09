@@ -100,8 +100,9 @@
     <Compile Include="ScreenCapture.cs" />
     <Compile Include="Tests\MSTests\ImageWorkerMSTests.cs" />
     <Compile Include="Tests\MSTests\WinAPIMSTests.cs" />
-    <Compile Include="Tests\NUnitTests\NewMouseEventCheck.cs" />
-    <Compile Include="Tests\NUnitTests\Steps.cs" />
+    <Compile Include="Tests\NUnitTests\SikuliTest.cs" />
+    <Compile Include="Tests\NUnitTests\GlobalActions.cs" />
+    <Compile Include="Utils\ProjectPathHelper.cs" />
     <Compile Include="WinAPI\KeyboardMethods.cs" />
     <Compile Include="WinAPI\MouseMethods.cs" />
     <Compile Include="ImageWorker.cs" />
@@ -119,6 +120,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="License-LGPL.txt" />
+    <Content Include="patterns\cheir.PNG" />
+    <Content Include="patterns\chrome.PNG" />
+    <Content Include="patterns\close button.PNG" />
+    <Content Include="patterns\delete element.PNG" />
+    <Content Include="patterns\Desktop.png" />
+    <Content Include="patterns\dining room items.PNG" />
+    <Content Include="patterns\Dining room.PNG" />
+    <Content Include="patterns\furnish your room.PNG" />
+    <Content Include="patterns\items list.PNG" />
+    <Content Include="patterns\main page with dialog window.PNG" />
+    <Content Include="patterns\main page.PNG" />
+    <Content Include="patterns\search.PNG" />
+    <Content Include="patterns\StepResult.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Config.resx">

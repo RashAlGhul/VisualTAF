@@ -19,7 +19,7 @@ namespace VisualTAF.Tests.NUnitTests
         [Test]
         public void FindSubImageTest()
         {
-            ImageWorker.FindSubImage(DesktopPath, WinPath);
+            ImageWorker.FindSubImageAndSaveResultIntoFile(DesktopPath, WinPath);
         }
 
         [Test]
