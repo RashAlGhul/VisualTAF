@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VisualTAF.ImageWait
+namespace VisualTAF.ImageWaitPreAlpha
 {
     /// <summary>
     /// Interface describing a class designed to wait for a condition.

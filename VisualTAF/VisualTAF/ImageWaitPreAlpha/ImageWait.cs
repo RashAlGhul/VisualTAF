@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VisualTAF.Exceptions;
 
-namespace VisualTAF.ImageWait
+namespace VisualTAF.ImageWaitPreAlpha
 {
     class ImageWait : DefaultWait<Image>
     {

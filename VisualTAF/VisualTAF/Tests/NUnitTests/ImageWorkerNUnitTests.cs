@@ -13,7 +13,7 @@ namespace VisualTAF.Tests.NUnitTests
         [SetUp]
         public void SetUp()
         {
-            ImageWorker.TakeScreenshot(DesktopPath);
+            ImageWorker.TakeScreenshotMagick(DesktopPath);
         }
 
         [Test]
@@ -38,14 +38,14 @@ namespace VisualTAF.Tests.NUnitTests
         [Test]
         public void FindDifferenceBetweenImagesTest()
         {
-            ImageWorker.TakeScreenshot(DesktopDifferencePath);
+            ImageWorker.TakeScreenshotMagick(DesktopDifferencePath);
             ImageWorker.FindDifferenceBetweenImages(DesktopPath,DesktopDifferencePath);
         }
         
         [Test]
         public void FindDifferenceImagesTest()
         {
-            ImageWorker.TakeScreenshot(DesktopDifferencePath);
+            ImageWorker.TakeScreenshotMagick(DesktopDifferencePath);
             System.Console.Write(ImageWorker.FindDifference(DesktopPath,DesktopDifferencePath));
         }
     }

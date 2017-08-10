@@ -95,12 +95,13 @@
     </Compile>
     <Compile Include="Exceptions\ImageException.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />
-    <Compile Include="ImageWait\DefaultWait.cs" />
-    <Compile Include="ImageWait\IClock.cs" />
-    <Compile Include="ImageWait\ImageWait.cs" />
-    <Compile Include="ImageWait\IWait.cs" />
-    <Compile Include="ImageWait\SystemClock.cs" />
-    <Compile Include="LicensePlateDetector.cs" />
+    <Compile Include="ImageWaitPreAlpha\DefaultWait.cs" />
+    <Compile Include="ImageWaitPreAlpha\IClock.cs" />
+    <Compile Include="ImageWaitPreAlpha\ImageWait.cs" />
+    <Compile Include="ImageWaitPreAlpha\IWait.cs" />
+    <Compile Include="ImageWaitPreAlpha\SystemClock.cs" />
+    <Compile Include="Utils\BetaWaitCondition.cs" />
+    <Compile Include="Utils\LicensePlateDetector.cs" />
     <Compile Include="ScreenCapture.cs" />
     <Compile Include="Tests\MSTests\ImageWorkerMSTests.cs" />
     <Compile Include="Tests\MSTests\WinAPIMSTests.cs" />

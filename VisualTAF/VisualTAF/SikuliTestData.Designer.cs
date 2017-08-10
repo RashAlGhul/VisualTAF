@@ -61,6 +61,15 @@ namespace VisualTAF {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 10.
+        /// </summary>
+        internal static string DefaultWait {
+            get {
+                return ResourceManager.GetString("DefaultWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://roomstyler.com/3dplanner.
         /// </summary>
         internal static string TestSite {

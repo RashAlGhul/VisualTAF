@@ -54,7 +54,21 @@ namespace VisualTAF
             }
         }
 
-        public static void TakeScreenshot(string savePath)
+        public static void TakeScreenshot(string desktopSavePath)
+        {
+            ScreenCapture sc = new ScreenCapture();
+            Image img = sc.CaptureScreen();
+            img.Save(desktopSavePath);
+        }
+
+        public static void TakeScreenshot()
+        {
+            ScreenCapture sc = new ScreenCapture();
+            Image img = sc.CaptureScreen();
+            img.Save($@"{ProjectPathHelper.DesktopPath}\Desktop.png");
+        }
+
+        public static void TakeScreenshotMagick(string savePath)
         {
             using (MagickImage screen = new MagickImage("screenshot:"))
             {
@@ -62,7 +76,7 @@ namespace VisualTAF
             }
         }
 
-        public static void TakeScreenshot()
+        public static void TakeScreenshotMagick()
         {
             using (MagickImage screen = new MagickImage("screenshot:"))
             {
@@ -803,6 +817,168 @@ namespace VisualTAF
                 result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
 
                 
+                if (maxValues[0] > threshold)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsSubImageExist(string subImage)
+        {
+            TakeScreenshot();
+            Image<Bgr, byte> source = new Image<Bgr, byte>($@"{ProjectPathHelper.DesktopPath}\Desktop.png");
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage);
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+
+                if (maxValues[0] > 0.9)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsSubImageExist(Image subImage)
+        {
+            TakeScreenshot();
+            Image<Bgr, byte> source = new Image<Bgr, byte>($@"{ProjectPathHelper.DesktopPath}\Desktop.png");
+            Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap)subImage);
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+
+                if (maxValues[0] > 0.9)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsSubImageExist(Bitmap subImage)
+        {
+            TakeScreenshot();
+            Image<Bgr, byte> source = new Image<Bgr, byte>($@"{ProjectPathHelper.DesktopPath}\Desktop.png");
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage);
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+
+                if (maxValues[0] > 0.9)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsSubImageExist(MagickImage subImage)
+        {
+            TakeScreenshot();
+            Image<Bgr, byte> source = new Image<Bgr, byte>($@"{ProjectPathHelper.DesktopPath}\Desktop.png");
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap());
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+
+                if (maxValues[0] > 0.9)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsSubImageExist(string subImage, double threshold)
+        {
+            TakeScreenshot();
+            Image<Bgr, byte> source = new Image<Bgr, byte>($@"{ProjectPathHelper.DesktopPath}\Desktop.png");
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage);
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+
+                if (maxValues[0] > threshold)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsSubImageExist(Image subImage, double threshold)
+        {
+            TakeScreenshot();
+            Image<Bgr, byte> source = new Image<Bgr, byte>($@"{ProjectPathHelper.DesktopPath}\Desktop.png");
+            Image<Bgr, byte> template = new Image<Bgr, byte>((Bitmap)subImage);
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+
+                if (maxValues[0] > threshold)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsSubImageExist(Bitmap subImage, double threshold)
+        {
+            TakeScreenshot();
+            Image<Bgr, byte> source = new Image<Bgr, byte>($@"{ProjectPathHelper.DesktopPath}\Desktop.png");
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage);
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+
+
+                if (maxValues[0] > threshold)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsSubImageExist(MagickImage subImage, double threshold)
+        {
+            TakeScreenshot();
+            Image<Bgr, byte> source = new Image<Bgr, byte>($@"{ProjectPathHelper.DesktopPath}\Desktop.png");
+            Image<Bgr, byte> template = new Image<Bgr, byte>(subImage.ToBitmap());
+
+            using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+
+
                 if (maxValues[0] > threshold)
                 {
                     return true;

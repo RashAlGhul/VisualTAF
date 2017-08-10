@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
-namespace VisualTAF.ImageWait
+namespace VisualTAF.ImageWaitPreAlpha
 {
     public class DefaultWait<T> : IWait<T>
     {

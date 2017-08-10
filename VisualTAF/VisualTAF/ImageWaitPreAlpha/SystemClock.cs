@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace VisualTAF.ImageWait
+namespace VisualTAF.ImageWaitPreAlpha
 {
     /// <summary>Uses the system clock to calculate time for timeouts.</summary>
     public class SystemClock : IClock

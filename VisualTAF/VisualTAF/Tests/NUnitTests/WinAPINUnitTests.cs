@@ -14,7 +14,7 @@ namespace VisualTAF.Tests.NUnitTests
         [SetUp]
         public void SetUp()
         {
-            ImageWorker.TakeScreenshot(DesktopPath);
+            ImageWorker.TakeScreenshotMagick(DesktopPath);
         }
 
         [Test]

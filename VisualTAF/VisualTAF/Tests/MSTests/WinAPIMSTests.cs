@@ -14,7 +14,7 @@ namespace VisualTAF.Tests.MSTests
         [TestInitialize]
         public void SetUp()
         {
-            ImageWorker.TakeScreenshot(DesktopPath);
+            ImageWorker.TakeScreenshotMagick(DesktopPath);
         }
 
         [TestMethod]

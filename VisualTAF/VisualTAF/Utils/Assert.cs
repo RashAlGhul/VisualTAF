@@ -11,13 +11,13 @@ namespace VisualTAF.Utils
             if (expected.Equals(actual))
             {
                 message = $"Assertion :: {condition} :: PASSED";
-                TakeScreenshot($"{condition}PASS");
+                ImageWorker.TakeScreenshot($"{condition}PASS");
                 Logger.Instance.Info(message);
             }
             else
             {
                 message = $"Assertion :: {condition} :: FALSE";
-                TakeScreenshot($"{condition}FAIL");
+                ImageWorker.TakeScreenshot($"{condition}FAIL");
                 NUnit.Framework.Assert.AreEqual(expected, actual, message);
             }
         }
@@ -27,13 +27,13 @@ namespace VisualTAF.Utils
             if (expected)
             {
                 message = $"Assertion :: {condition} :: PASSED";
-                TakeScreenshot($"{condition}PASS");
+                ImageWorker.TakeScreenshot($"{condition}PASS");
                 Logger.Instance.Info($"Assertion :: {condition} :: PASSED");
             }
             else
             {
                 message = $"Assertion :: {condition} :: FALSE";
-                TakeScreenshot($"{condition}FAIL");
+                ImageWorker.TakeScreenshot($"{condition}FAIL");
                 NUnit.Framework.Assert.True(expected, message);
             }
         }
@@ -43,13 +43,13 @@ namespace VisualTAF.Utils
             if (!expected)
             {
                 message = $"Assertion :: {condition} :: PASSED";
-                TakeScreenshot($"{condition}PASS");
+                ImageWorker.TakeScreenshot($"{condition}PASS");
                 Logger.Instance.Info(message);
             }
             else
             {
                 message = $"Assertion :: {condition} :: FALSE";
-                TakeScreenshot($"{condition}FAIL");
+                ImageWorker.TakeScreenshot($"{condition}FAIL");
                 NUnit.Framework.Assert.False(expected, message);
             }
         }
@@ -66,7 +66,7 @@ namespace VisualTAF.Utils
             else
             {
                 message = $"Assertion :: {condition} :: FALSE";
-                TakeScreenshot($"{condition}FAIL");
+                ImageWorker.TakeScreenshot($"{condition}FAIL");
                 NUnit.Framework.Assert.True(findResult, message);
             }
         }
@@ -77,7 +77,7 @@ namespace VisualTAF.Utils
             if (!findResult)
             {
                 message = $"Assertion :: {condition} :: PASSED";
-                TakeScreenshot($"{condition}PASS");
+                ImageWorker.TakeScreenshot($"{condition}PASS");
                 Logger.Instance.Info(message);
             }
             else
@@ -100,7 +100,7 @@ namespace VisualTAF.Utils
             else
             {
                 message = $"Assertion :: {condition} :: FAILED";
-                TakeScreenshot($"{condition}FAIL");
+                ImageWorker.TakeScreenshot($"{condition}FAIL");
                 NUnit.Framework.Assert.True(findResult, message);
             }
         }
@@ -111,7 +111,7 @@ namespace VisualTAF.Utils
             if (!findResult)
             {
                 message = $"Assertion :: {condition} :: PASSED";
-                TakeScreenshot($"{condition}PASS");
+                ImageWorker.TakeScreenshot($"{condition}PASS");
                 Logger.Instance.Info(message);
             }
             else
@@ -134,7 +134,7 @@ namespace VisualTAF.Utils
             else
             {
                 message = $"Assertion :: {condition} :: FALSE";
-                TakeScreenshot($"{condition}FAIL");
+                ImageWorker.TakeScreenshot($"{condition}FAIL");
                 NUnit.Framework.Assert.True(findResult, message);
             }
         }
@@ -145,7 +145,7 @@ namespace VisualTAF.Utils
             if (!findResult)
             {
                 message = $"Assertion :: {condition} :: PASSED";
-                TakeScreenshot($"{condition}PASS");
+                ImageWorker.TakeScreenshot($"{condition}PASS");
                 Logger.Instance.Info(message);
             }
             else
@@ -168,7 +168,7 @@ namespace VisualTAF.Utils
             else
             {
                 message = $"Assertion :: {condition} :: FALSE";
-                TakeScreenshot($"{condition}FAIL");
+                ImageWorker.TakeScreenshot($"{condition}FAIL");
                 NUnit.Framework.Assert.True(findResult, message);
             }
         }
@@ -179,7 +179,7 @@ namespace VisualTAF.Utils
             if (!findResult)
             {
                 message = $"Assertion :: {condition} :: PASSED";
-                TakeScreenshot($"{condition}PASS");
+                ImageWorker.TakeScreenshot($"{condition}PASS");
                 Logger.Instance.Info(message);
             }
             else
@@ -188,14 +188,6 @@ namespace VisualTAF.Utils
                 ImageWorker.FindSubImageAndSaveResultIntoFile(mainImage, subImage, $"{ProjectPathHelper.DesktopPath}/{message}.png");
                 NUnit.Framework.Assert.False(findResult, message);
             }
-        }
-
-        private static void TakeScreenshot(string condition)
-        {
-            ScreenCapture sc = new ScreenCapture();
-            Image img = sc.CaptureScreen();
-            string savepath = $"{ProjectPathHelper.DesktopPath}/{condition}.png";
-            img.Save(savepath);
         }
     }
 }
