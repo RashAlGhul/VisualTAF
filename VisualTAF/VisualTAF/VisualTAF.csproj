@@ -47,6 +47,9 @@
       <HintPath>..\packages\EmguCV.3.1.0.1\lib\net30\Emgu.CV.World.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Magick.NET-Q16-AnyCPU, Version=7.0.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
       <HintPath>..\packages\Magick.NET-Q16-AnyCPU.7.0.6.600\lib\net40\Magick.NET-Q16-AnyCPU.dll</HintPath>
     </Reference>
@@ -85,10 +88,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config.Designer.cs">
+    <Compile Include="SikuliTestData.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Config.resx</DependentUpon>
+      <DependentUpon>SikuliTestData.resx</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\ImageException.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />
@@ -97,11 +100,15 @@
     <Compile Include="ImageWait\ImageWait.cs" />
     <Compile Include="ImageWait\IWait.cs" />
     <Compile Include="ImageWait\SystemClock.cs" />
+    <Compile Include="LicensePlateDetector.cs" />
     <Compile Include="ScreenCapture.cs" />
     <Compile Include="Tests\MSTests\ImageWorkerMSTests.cs" />
     <Compile Include="Tests\MSTests\WinAPIMSTests.cs" />
-    <Compile Include="Tests\NUnitTests\SikuliTest.cs" />
-    <Compile Include="Tests\NUnitTests\GlobalActions.cs" />
+    <Compile Include="Tests\Sikuli\BaseTest.cs" />
+    <Compile Include="Tests\Sikuli\SikuliTest.cs" />
+    <Compile Include="Tests\Sikuli\GlobalActions.cs" />
+    <Compile Include="Utils\Assert.cs" />
+    <Compile Include="Utils\Logger.cs" />
     <Compile Include="Utils\ProjectPathHelper.cs" />
     <Compile Include="WinAPI\KeyboardMethods.cs" />
     <Compile Include="WinAPI\MouseMethods.cs" />
@@ -120,6 +127,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="License-LGPL.txt" />
+    <Content Include="log4net.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="patterns\cheir.PNG" />
     <Content Include="patterns\chrome.PNG" />
     <Content Include="patterns\close button.PNG" />
@@ -135,9 +145,9 @@
     <Content Include="patterns\StepResult.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Config.resx">
+    <EmbeddedResource Include="SikuliTestData.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Config.Designer.cs</LastGenOutput>
+      <LastGenOutput>SikuliTestData.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

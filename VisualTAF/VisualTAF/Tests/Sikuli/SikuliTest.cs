@@ -1,14 +1,14 @@
-﻿using NUnit.Framework;
-using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Threading;
+using NUnit.Framework;
 using VisualTAF.Utils;
 using VisualTAF.WinAPI;
+using Assert = VisualTAF.Utils.Assert;
 
-namespace VisualTAF.Tests.NUnitTests
+namespace VisualTAF.Tests.Sikuli
 {
     [TestFixture]
-    public class SikuliTest
+    public class SikuliTest:BaseTest
     {
         private readonly string chrome = $@"{ProjectPathHelper.ProjectPath}\patterns\chrome.png";
         private readonly string desktop = $@"{ProjectPathHelper.DesktopPath}\Desktop.png";
@@ -31,49 +31,49 @@ namespace VisualTAF.Tests.NUnitTests
         private readonly GlobalActions actions = new GlobalActions();
 
         [Test]
-        public void TestMethod()
+        public void SiteTestMethod()
         {
             actions.FindAndOpenChrome(desktop, chrome);
             Thread.Sleep(1000);
+            Logger.Instance.Info($"Open site: {SikuliTestData.TestSite}");
             actions.FindSearchFieldAndGoToTheTestSite(desktop, search);
             Thread.Sleep(2000);
             actions.TakeScreenshot(desktop);
-            Assert.True(ImageWorker.IsSubImageExist(desktop, mainPageWithDialog));
-            ImageWorker.FindSubImageAndSaveResultIntoFile(desktop, mainPageWithDialog, result);
+            Assert.True(ImageWorker.IsSubImageExist(desktop, mainPageWithDialog), "Verify that main site form with dialog window is open");
+            Logger.Instance.Info("Close dialog window");
             MouseMethods.LMBClick(ImageWorker.FindSubImageCoordinate(desktop, closeButton));
-            Thread.Sleep(500);
+            Thread.Sleep(1000);
             actions.TakeScreenshot(desktop);
-            Assert.True(ImageWorker.IsSubImageExist(desktop, mainPage));
-            ImageWorker.FindSubImageAndSaveResultIntoFile(desktop, mainPage, result);
+            Assert.True(desktop, mainPage, "Verify that main site form without dialog window is open");
+            Logger.Instance.Info("Open 'furnish your room' list");
             MouseMethods.LMBClick(ImageWorker.FindSubImageCoordinate(desktop, furnishYourRoomButton));
             Thread.Sleep(500);
             actions.TakeScreenshot(desktop);
-            Assert.True(ImageWorker.IsSubImageExist(desktop, itemsList));
-            ImageWorker.FindSubImageAndSaveResultIntoFile(desktop, itemsList, result);
+            Assert.True(desktop, itemsList, "Verify that 'furnish your room' items list is open");
+            Logger.Instance.Info("Select 'dinig room' section");
             MouseMethods.LMBClick(ImageWorker.FindSubImageCoordinate(desktop, diningRoom));
             Thread.Sleep(500);
             actions.TakeScreenshot(desktop);
+            Logger.Instance.Info("Select bar cheir and move it on workspace");
             Point point = ImageWorker.FindSubImageCoordinate(desktop, cheir);
             MouseMethods.DragAndDrop(point, new Point(point.X+500, point.Y));
             Thread.Sleep(500);
             actions.TakeScreenshot(desktop);
-            Assert.True(ImageWorker.IsSubImageExist(desktop, cheirOnWorkspace));
-            ImageWorker.FindSubImageAndSaveResultIntoFile(desktop, itemsList, result);
-            Assert.True(ImageWorker.IsSubImageExist(desktop, etalonCheir));
-            ImageWorker.FindSubImageAndSaveResultIntoFile(desktop, etalonCheir, result);
+            Assert.True(desktop, cheirOnWorkspace, "Verify that chair is on the workspace");
+            Assert.True(desktop, etalonCheir, "Verify that chair is on the workspace is etalon");
+            Logger.Instance.Info("Click on chair to verify it data");
             MouseMethods.LMBClick(ImageWorker.FindSubImageCoordinate(desktop, etalonCheir));
             Thread.Sleep(500);
             actions.TakeScreenshot(desktop);
-            Assert.True(ImageWorker.IsSubImageExist(desktop, cheirName));
+            Assert.True(desktop, cheirName, "Verify that chair has right name");
             ImageWorker.FindSubImageAndSaveResultIntoFile(desktop, cheirName, result);
-            Assert.True(ImageWorker.IsSubImageExist(desktop, cheirProperties));
-            ImageWorker.FindSubImageAndSaveResultIntoFile(result, cheirProperties, result);
+            Assert.True(desktop, cheirProperties, "Verify that chair has right name");
+            Logger.Instance.Info("Remove chair from workspace");
             MouseMethods.LMBClick(ImageWorker.FindSubImageCoordinate(desktop, deleteButton));
             Thread.Sleep(500);
             actions.TakeScreenshot(desktop);
-            Assert.True(ImageWorker.IsSubImageExist(desktop, emptyScene));
-            Assert.True(ImageWorker.IsSubImageExist(desktop, sceneInfo));
-            ImageWorker.FindSubImageAndSaveResultIntoFile(desktop, sceneInfo, result);
+            Assert.True(desktop, emptyScene, "Verify that chair was remove");
+            Assert.True(desktop, sceneInfo, "Verify that scene has defoult parameters");
         }
     }
 }

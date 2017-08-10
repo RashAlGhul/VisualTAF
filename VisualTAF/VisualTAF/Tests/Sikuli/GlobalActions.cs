@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using VisualTAF.WinAPI;
 
-namespace VisualTAF.Tests.NUnitTests
+namespace VisualTAF.Tests.Sikuli
 {
     public class GlobalActions
     {
@@ -19,7 +19,7 @@ namespace VisualTAF.Tests.NUnitTests
             TakeScreenshot(desktopPath);
             subImageCoordinate = ImageWorker.FindSubImageCoordinate(desktopPath, searchPath);
             MouseMethods.LMBClick(subImageCoordinate.X + 100, subImageCoordinate.Y);
-            KeyboardMethods.TypeText(Config.TestSite);
+            KeyboardMethods.TypeText(SikuliTestData.TestSite);
             KeyboardMethods.PressEnter();
         }
 
